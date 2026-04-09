@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}UI Theme Demo · Final Year Project Name{% endblock %}
+{% block content %}
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1 class="hero-title">Professional Resume Analysis</h1>
+    <p class="hero-subtitle">Get instant feedback on your resume with our AI-powered analyzer. Improve your chances of landing your dream job.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary">Analyze Your Resume</a>
+      <a href="#" class="btn btn-ghost">View Sample Reports</a>
+    </div>
+  </section>
+
+  <!-- Section Header -->
+  <div class="section-header">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-description">Our advanced AI analyzes your resume against thousands of successful applications to provide actionable insights.</p>
+  </div>
+
+  <!-- Cards Section -->
+  <div class="row two">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Upload Your Resume</div>
+      </div>
+      <div class="card-body">
+        <p>Simply upload your PDF or DOCX resume and our system will analyze it instantly.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">AI Analysis</div>
+      </div>
+      <div class="card-body">
+        <p>Our AI examines your content, structure, keywords, and formatting for optimal results.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row two">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Get Insights</div>
+      </div>
+      <div class="card-body">
+        <p>Receive detailed feedback on improvements with specific examples and suggestions.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Improve & Apply</div>
+      </div>
+      <div class="card-body">
+        <p>Implement our recommendations and increase your chances of getting hired.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Quick Analysis</div>
+    </div>
+    <div class="card-body">
+      <form class="resume-form">
+        <div class="row two">
+          <div class="field">
+            <label for="name" class="label">Full Name</label>
+            <input class="input" id="name" name="name" placeholder="John Doe">
+          </div>
+          <div class="field">
+            <label for="email" class="label">Email Address</label>
+            <input class="input" id="email" name="email" type="email" placeholder="john@example.com">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message" class="label">Message</label>
+          <textarea class="input textarea" id="message" name="message" rows="4" placeholder="Tell us about your experience..."></textarea>
+        </div>
+
+        <div class="form-actions" style="margin-top: 20px;">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="reset" class="btn btn-ghost">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

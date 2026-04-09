@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block title %}Login Required · bridge.ai{% endblock %}
+{% block content %}
+  <section class="hero">
+    <!-- Login Prompt Card -->
+    <div class="card glow main-upload-card">
+      <div class="card-header">
+        <div class="card-title">🔒 Login Required</div>
+      </div>
+      <div class="card-body">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <div style="font-size: 60px; margin-bottom: 20px;">📊</div>
+          <h2 style="margin-bottom: 15px; color: #6ee7ff;">Analysis Complete!</h2>
+          <p class="helper" style="font-size: 18px; margin-bottom: 25px;">
+            Your resume has been analyzed and we've generated a quality score of 
+            <strong>{{ prediction_text.split(': ')[1] }}</strong>
+          </p>
+        </div>
+
+        <div class="card" style="background: rgba(110, 231, 255, 0.1); border: 1px solid rgba(110, 231, 255, 0.3); margin-bottom: 30px;">
+          <div class="card-body">
+            <h3 style="color: #6ee7ff; margin-bottom: 15px;">📋 Quick Preview</h3>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+              <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: bold; color: #6ee7ff;">
+                  {{ analytics.resume_score if analytics and analytics.resume_score else 'N/A' }}
+                </div>
+                <div style="font-size: 14px; color: #b0c4de;">Resume Score</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: bold; color: #6ee7ff;">
+                  {{ analytics.skill_match_percentage if analytics and analytics.skill_match_percentage else 'N/A' }}%
+                </div>
+                <div style="font-size: 14px; color: #b0c4de;">Skill Match</div>
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size: 24px; font-weight: bold; color: #6ee7ff;">
+                  {{ analytics.experience_years if analytics and analytics.experience_years else '0' }}
+                </div>
+                <div style="font-size: 14px; color: #b0c4de;">Years Experience</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.3); padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+          <h3 style="color: #ff6b6b; margin-bottom: 15px;">⚠️ Limited Preview</h3>
+          <p style="color: #e6f0ff; line-height: 1.6;">
+            This is just a preview of your analysis results. To view the complete detailed report including:
+          </p>
+          <ul style="color: #b0c4de; margin: 15px 0; padding-left: 20px;">
+            <li>Detailed skill gap analysis</li>
+            <li>Personalized improvement suggestions</li>
+            <li>Advanced analytics and insights</li>
+            <li>Save and track your progress</li>
+            <li>Access your analysis history</li>
+          </ul>
+          <p style="color: #e6f0ff; margin-top: 15px;">
+            <strong>You need to login or create an account.</strong>
+          </p>
+        </div>
+
+        <div class="stack" style="justify-content: center; gap: 20px; margin-top: 30px;">
+          <a href="{{ url_for('login') }}" class="btn btn-primary" style="padding: 15px 30px; font-size: 18px;">
+            🔐 Login to View Full Results
+          </a>
+          <a href="{{ url_for('register') }}" class="btn" style="padding: 15px 30px; font-size: 18px; background: linear-gradient(180deg, rgba(110,231,255,0.3), rgba(110,231,255,0.2)); border: 1px solid rgba(110, 231, 255, 0.5); color: #6ee7ff;">
+            📝 Register New Account
+          </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <a href="{{ url_for('guest_analyzer') }}" class="btn btn-ghost">
+            ← Analyze Another Resume
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits of Login -->
+    <div class="card glow">
+      <div class="card-header">
+        <div class="card-title">✨ Why Login?</div>
+      </div>
+      <div class="card-body">
+        <div class="steps-grid">
+          <div class="step-item">
+            <div class="step-number">1</div>
+            <div class="step-title">Save Your Analysis</div>
+            <div class="step-desc">Keep track of all your resume analyses in one place</div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">2</div>
+            <div class="step-title">Detailed Insights</div>
+            <div class="step-desc">Get comprehensive reports with actionable recommendations</div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">3</div>
+            <div class="step-title">Progress Tracking</div>
+            <div class="step-desc">Monitor your resume improvement over time</div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">4</div>
+            <div class="step-title">Career Roadmap</div>
+            <div class="step-desc">Generate personalized development plans for your career</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .step-item {
+      background: rgba(0, 31, 63, 0.5);
+      border: 1px solid rgba(110, 231, 255, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .step-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(110, 231, 255, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .step-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #6ee7ff;
+      margin-bottom: 10px;
+    }
+    
+    .step-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e6f0ff;
+      margin-bottom: 10px;
+    }
+    
+    .step-desc {
+      font-size: 14px;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+  </style>
+{% endblock %}

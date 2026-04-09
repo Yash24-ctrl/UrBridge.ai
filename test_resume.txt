@@ -1,0 +1,20 @@
+John Doe
+Software Engineer
+
+EXPERIENCE
+5 years of experience in software development
+
+EDUCATION
+Bachelor of Science in Computer Science
+
+SKILLS
+Python, JavaScript, React, Node.js, SQL, Docker, Kubernetes
+
+CERTIFICATIONS
+3 certifications in cloud computing and DevOps
+
+PROJECTS
+8 projects completed including web applications and mobile apps
+
+LANGUAGES
+English, Spanish

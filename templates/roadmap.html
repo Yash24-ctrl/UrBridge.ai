@@ -1,0 +1,614 @@
+{% extends "base.html" %}
+
+{% block title %}Development Roadmap - Resume Quality Analyzer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .roadmap-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .roadmap-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border-radius: 15px;
+        border: 1px solid var(--border);
+    }
+    
+    .roadmap-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--accent);
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+    
+    .roadmap-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+    }
+    
+    .roadmap-stats {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    
+    .stat-card {
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        padding: 15px 25px;
+        border: 1px solid var(--border);
+        text-align: center;
+        min-width: 150px;
+    }
+    
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent);
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    }
+    
+    .roadmap-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .roadmap-step {
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border-radius: 15px;
+        padding: 25px;
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+    }
+    
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        border-color: var(--accent);
+    }
+    
+    .step-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .step-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0;
+    }
+    
+    .step-category {
+        background: var(--accent);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
+    .step-description {
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+    
+    .step-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .step-time {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-secondary);
+    }
+    
+    .step-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .btn-status {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-not-started {
+        background: var(--warning);
+        color: white;
+    }
+    
+    .btn-in-progress {
+        background: var(--info);
+        color: white;
+    }
+    
+    .btn-completed {
+        background: var(--success);
+        color: white;
+    }
+    
+    .btn-not-started:hover {
+        background: #ff9800;
+    }
+    
+    .btn-in-progress:hover {
+        background: #17a2b8;
+    }
+    
+    .btn-completed:hover {
+        background: #28a745;
+    }
+    
+    .step-resources {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+    }
+    
+    .resources-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+    }
+    
+    .resource-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .resource-item {
+        background: rgba(0, 255, 255, 0.1);
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .progress-bar-container {
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        margin: 20px 0;
+        overflow: hidden;
+    }
+    
+    .progress-bar {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 5px;
+        transition: width 0.5s ease;
+    }
+    
+    .progress-text {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+    
+    .generate-btn {
+        display: block;
+        margin: 30px auto;
+        padding: 12px 30px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .generate-btn:hover {
+        background: #00c3ff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 195, 255, 0.3);
+    }
+    
+    .export-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+    }
+    
+    .export-btn {
+        padding: 10px 20px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .export-btn:hover {
+        background: #00c3ff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 195, 255, 0.3);
+    }
+    
+    .progress-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+    
+    .detail-card {
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid var(--border);
+        text-align: center;
+    }
+    
+    .detail-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin: 10px 0;
+    }
+    
+    .detail-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    }
+    
+    .time-tracking {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .time-input {
+        width: 80px;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-primary);
+    }
+    
+    .track-btn {
+        padding: 8px 12px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .track-btn:hover {
+        background: #00c3ff;
+    }
+    
+    @media (max-width: 768px) {
+        .roadmap-title {
+            font-size: 2rem;
+        }
+        
+        .roadmap-stats {
+            gap: 15px;
+        }
+        
+        .stat-card {
+            min-width: 120px;
+            padding: 12px 20px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+        }
+        
+        .roadmap-step {
+            padding: 20px;
+        }
+        
+        .step-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .step-meta {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="roadmap-container">
+    <div class="roadmap-header">
+        <h1 class="roadmap-title">Your Development Roadmap</h1>
+        <p class="roadmap-subtitle">Personalized learning path to advance your career as a {{ roadmap.job_role }}</p>
+        
+        {% if roadmap %}
+        <div class="progress-text">{{ "%.1f"|format(roadmap.progress_percentage) }}% Complete</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" style="width: {{ roadmap.progress_percentage }}%"></div>
+        </div>
+        
+        <div class="roadmap-stats">
+            <div class="stat-card">
+                <div class="stat-value">{{ roadmap.steps|length }}</div>
+                <div class="stat-label">Steps</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "%.0f"|format(roadmap.progress_percentage) }}%</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "%.0f"|format(100 - roadmap.progress_percentage) }}%</div>
+                <div class="stat-label">Remaining</div>
+            </div>
+        </div>
+        
+        <!-- Export Buttons -->
+        <div class="export-buttons">
+            <button class="export-btn" onclick="exportRoadmap('pdf')">
+                <i class="fas fa-file-pdf"></i>
+                Export as PDF
+            </button>
+            <button class="export-btn" onclick="exportRoadmap('json')">
+                <i class="fas fa-file-code"></i>
+                Export as JSON
+            </button>
+            <button class="export-btn" onclick="exportRoadmap('csv')">
+                <i class="fas fa-file-csv"></i>
+                Export as CSV
+            </button>
+        </div>
+        
+        <!-- Progress Details Section -->
+        <div id="progressDetails" class="progress-details">
+            <!-- Will be populated by JavaScript -->
+        </div>
+        
+        {% else %}
+        <p>No roadmap found. Generate one to get started!</p>
+        {% endif %}
+    </div>
+    
+    {% if roadmap %}
+    <div class="roadmap-steps">
+        {% for step in roadmap.steps %}
+        <div class="roadmap-step" data-step-id="{{ step.step_id }}">
+            <div class="step-header">
+                <h3 class="step-title">{{ step.order }}. {{ step.title }}</h3>
+                <span class="step-category">{{ step.category|title }}</span>
+            </div>
+            
+            <p class="step-description">{{ step.description }}</p>
+            
+            <div class="step-meta">
+                <div class="step-time">
+                    <i class="fas fa-clock"></i>
+                    <span>{{ step.estimated_time }} hours</span>
+                </div>
+                
+                <div class="step-actions">
+                    <button class="btn-status btn-{{ step.status.replace('_', '-') }}" 
+                            onclick="updateStepStatus({{ step.step_id }}, '{{ 'not_started' if step.status != 'not_started' else 'in_progress' }}')">
+                        {% if step.status == 'not_started' %}Start{% elif step.status == 'in_progress' %}In Progress{% else %}Completed{% endif %}
+                    </button>
+                    {% if step.status == 'in_progress' %}
+                    <button class="btn-status btn-completed" 
+                            onclick="updateStepStatus({{ step.step_id }}, 'completed')">
+                        Mark Complete
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Time Tracking -->
+            <div class="time-tracking">
+                <label for="timeInput{{ step.step_id }}">Track time spent (minutes):</label>
+                <input type="number" id="timeInput{{ step.step_id }}" class="time-input" min="1" value="30">
+                <button class="track-btn" onclick="trackTime({{ step.step_id }})">Add Time</button>
+            </div>
+            
+            {% if step.resources and step.resources.resources %}
+            <div class="step-resources">
+                <h4 class="resources-title">Recommended Resources:</h4>
+                <div class="resource-list">
+                    {% for resource in step.resources.resources %}
+                    <div class="resource-item">{{ resource }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 50px;">
+        <h2>No Roadmap Available</h2>
+        <p>Generate a personalized development roadmap based on your skills and career goals.</p>
+        <button class="generate-btn" onclick="generateRoadmap()">Generate Your Roadmap</button>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function updateStepStatus(stepId, status) {
+        fetch(`/api/roadmap/step/${stepId}/status`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                status: status
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Reload the page to reflect changes
+                location.reload();
+            } else {
+                alert('Failed to update step status: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating step status');
+        });
+    }
+    
+    function generateRoadmap() {
+        fetch('/api/roadmap/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Reload the page to show the new roadmap
+                location.reload();
+            } else {
+                alert('Failed to generate roadmap: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while generating roadmap');
+        });
+    }
+    
+    function trackTime(stepId) {
+        const timeInput = document.getElementById(`timeInput${stepId}`);
+        const timeSpent = parseInt(timeInput.value);
+        
+        if (isNaN(timeSpent) || timeSpent <= 0) {
+            alert('Please enter a valid time value');
+            return;
+        }
+        
+        fetch(`/api/roadmap/step/${stepId}/track_time`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                time_spent_minutes: timeSpent
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update progress details
+                updateProgressDetails(data.progress_details);
+                // Reset input
+                timeInput.value = 30;
+            } else {
+                alert('Failed to track time: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while tracking time');
+        });
+    }
+    
+    function updateProgressDetails(progressDetails) {
+        const container = document.getElementById('progressDetails');
+        
+        if (!progressDetails) return;
+        
+        container.innerHTML = `
+            <div class="detail-card">
+                <div class="detail-label">Steps Completed</div>
+                <div class="detail-value">${progressDetails.completed_steps}/${progressDetails.total_steps}</div>
+                <div class="detail-label">${Math.round(progressDetails.completion_percentage)}%</div>
+            </div>
+            <div class="detail-card">
+                <div class="detail-label">Time Invested</div>
+                <div class="detail-value">${Math.round(progressDetails.invested_time)}</div>
+                <div class="detail-label">hours</div>
+            </div>
+            <div class="detail-card">
+                <div class="detail-label">Time Completion</div>
+                <div class="detail-value">${Math.round(progressDetails.time_completion_percentage)}%</div>
+                <div class="detail-label">of estimated</div>
+            </div>
+            <div class="detail-card">
+                <div class="detail-label">Remaining Time</div>
+                <div class="detail-value">${Math.round(progressDetails.total_time - progressDetails.invested_time)}</div>
+                <div class="detail-label">hours</div>
+            </div>
+        `;
+    }
+    
+    // Load progress details on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/roadmap/progress_details')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateProgressDetails(data.progress_details);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading progress details:', error);
+        });
+    });
+    
+    function exportRoadmap(format) {
+        // Create a temporary link to trigger download
+        const link = document.createElement('a');
+        link.href = `/api/roadmap/export/${format}`;
+        link.download = `roadmap.${format}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+{% endblock %}

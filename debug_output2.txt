@@ -1,0 +1,8 @@
+============================================================
+DEBUG: Testing exact skill matching functions
+============================================================
+1. Resume skills string: Machine Learning, Deep Learning, Agentic AI, Python, SQL
+2. Extracted resume skills: ['Machine Learning', 'Deep Learning', 'Agentic AI', 'Python', 'SQL']
+3. Extracted JD skills: ['Deep Learning', 'Nice to have: Agentic AI', 'machine learning deep', 'agentic ai reinforcement', 'expertise', 'ai engineer', 'ai', 'deep learning required', 'tensorflow nice agentic', 'machine learning', 'We', 'learning', 'Required', 'Reinforcement Learning', 'ai engineer expertise', 'engineer', 'skills machine', 'expertise machine learning', 'skills', 'Agentic', 'agentic ai', 'TensorFlow', 'python tensorflow', 'engineer expertise machine', 'deep learning python', 'Python', 'nice agentic ai', 'Nice', 'engineer expertise', 'looking ai', 'learning required skills', 'skills machine learning', 'looking ai engineer']
+
+4. Testing compare_resume_with_jd function:

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title or "Error" }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="error-page">
+    <div class="error-icon">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <h1 class="error-title">{{ title or "Something went wrong" }}</h1>
+    <p class="error-message">{{ error or "An unexpected error occurred." }}</p>
+    <div class="error-actions">
+      <a href="{{ url_for('home') }}" class="btn btn-primary">Go Home</a>
+      <a href="{{ url_for('profile') }}" class="btn btn-secondary">Dashboard</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .error-page {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .error-icon {
+    font-size: 72px;
+    color: var(--danger);
+    margin-bottom: 30px;
+  }
+  
+  .error-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  
+  .error-message {
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  
+  .error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+  
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  
+  .btn-secondary:hover {
+    background: var(--glass);
+    transform: translateY(-2px);
+  }
+</style>
+{% endblock %}

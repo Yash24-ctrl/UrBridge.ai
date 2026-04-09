@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}UrBridge.ai - Smart Resume Evaluation{% endblock %}
+
+{% block content %}
+
+<div class="intro-wrapper">
+  <!-- Welcome Section -->
+  <section class="welcome-section">
+    <div class="welcome-content">
+      <h1>Welcome to UrBridge.ai</h1>
+      <p class="welcome-subtitle">we bridge you to your opportunities<br>Your personal AI career assistant to optimize your resume and land your dream job</p>
+      
+      <div class="welcome-cta">
+        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Start Analyzing</a>
+        <a href="#features" class="btn btn-ghost btn-lg">Learn More</a>
+      </div>
+    </div>
+
+    <div class="welcome-visual">
+      <div class="animated-illustration">
+        <div class="rocket">🚀</div>
+        <div class="star star-1">⭐</div>
+        <div class="star star-2">⭐</div>
+        <div class="star star-3">⭐</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="services-showcase">
+    <div class="container">
+      <h2>Why Choose UrBridge.ai?</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">✅</div>
+          <div class="feature-content">
+            <h4>AI-Powered Insights</h4>
+            <p>Get data-driven recommendations to improve your resume's impact.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">⚙️</div>
+          <div class="feature-content">
+            <h4>ATS Optimization</h4>
+            <p>Ensure your resume gets past automated filters used by employers.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">📈</div>
+          <div class="feature-content">
+            <h4>Performance Tracking</h4>
+            <p>Monitor how your resume performs and make improvements.</p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🎓</div>
+          <div class="feature-content">
+            <h4>Expert Tips</h4>
+            <p>Access a library of resources to help you craft the perfect resume.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works section-soft">
+    <div class="container">
+      <h2>How It Works</h2>
+      <ol class="steps">
+        <li><strong>Paste or upload</strong> your resume.</li>
+        <li><strong>AI analyzes</strong> structure, keywords, and achievements.</li>
+        <li><strong>Receive</strong> a clear score, prioritized fixes, and job-match insights.</li>
+      </ol>
+      <p class="muted">Click "Start Analyzing" to continue — you'll be asked to log in or register, then proceed to your personalized analysis.</p>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section class="section reviews">
+    <div class="container">
+      <h2>What Users Say</h2>
+      <div class="reviews-grid">
+        <blockquote class="review">
+          <p>"Helped me get interviews within two weeks — suggestions were clear and actionable."</p>
+          <cite>— Sarah J., Software Engineer</cite>
+        </blockquote>
+        <blockquote class="review">
+          <p>"The job match feature exposed missing keywords and experience gaps I could fix quickly."</p>
+          <cite>— Michael C., Product Manager</cite>
+        </blockquote>
+        <blockquote class="review">
+          <p>"Excellent ATS feedback. My resume passes more recruiter filters now."</p>
+          <cite>— Emily D., Data Scientist</cite>
+        </blockquote>
+        <blockquote class="review">
+          <p>"As a recent graduate, this tool helped me craft a professional resume that landed me my first job!"</p>
+          <cite>— James T., UX Designer</cite>
+        </blockquote>
+        <blockquote class="review">
+          <p>"The AI-powered suggestions are incredibly accurate. I've seen a 40% increase in interview calls since using this tool."</p>
+          <cite>— Priya M., Marketing Manager</cite>
+        </blockquote>
+        <blockquote class="review">
+          <p>"Finally, a resume tool that understands what recruiters actually look for. Worth every penny!"</p>
+          <cite>— Robert K., Financial Analyst</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="section stats-cta">
+    <div class="container">
+      <div class="stats">
+        <div class="stat"><div class="num">50k+</div><div class="label">Resumes Analyzed</div></div>
+        <div class="stat"><div class="num">98%</div><div class="label">User Satisfaction</div></div>
+        <div class="stat"><div class="num">3x</div><div class="label">Average Interview Increase</div></div>
+      </div>
+
+      <div class="final-cta">
+        <h3>Ready to improve your resume?</h3>
+        <a class="btn btn-primary" href="{{ url_for('login') }}">Start Analyzing</a>
+        <a class="btn btn-ghost" href="{{ url_for('register') }}">Create Account</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <h2>Ready to Transform Your Career?</h2>
+    <p>Join thousands of job seekers who have successfully optimized their resumes</p>
+    <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Start Free Analysis</a>
+  </section>
+</div>
+
+<style>
+/* Basic layout + simple animations (override/extend in main css if needed) */
+.intro-hero { padding: 4rem 0; background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-secondary) 100%); }
+.intro-hero-inner { display:flex; gap:2.5rem; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+.intro-copy { max-width: 640px; }
+.intro-copy h1 { font-size:2.6rem; margin:0 0 .6rem; color:var(--color-primary); }
+.lead { font-size:1.05rem; color:var(--color-text-muted); margin-bottom:1rem; }
+.hero-ctas .btn { margin-right:.6rem; }
+.trust-list { margin-top:1rem; list-style:disc; margin-left:1.2rem; color:var(--color-text-muted); }
+
+.intro-visual { display:flex; gap:1rem; align-items:center; }
+.visual-card { width:140px; height:140px; border-radius:12px; background:white; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 10px 30px rgba(0,0,0,.08); transform:translateY(0); transition:transform .45s cubic-bezier(.2,.9,.2,1); }
+.visual-card:hover { transform:translateY(-12px) scale(1.03); }
+.visual-icon { font-size:2.2rem; margin-bottom:.4rem; }
+.floating { animation:float 3.6s ease-in-out infinite; }
+.delay { animation-delay:.3s; }
+.delay-2 { animation-delay:.6s; }
+@keyframes float { 0%{transform:translateY(0)}50%{transform:translateY(-14px)}100%{transform:translateY(0)} }
+
+.section { padding:3rem 0; }
+.section-soft { background: rgba(230,242,255,.6); border-radius:10px; margin:1.5rem 0; padding:2rem; }
+.pillars { display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap; }
+.pillar { background:white; padding:1rem; border-radius:8px; flex:1; min-width:200px; box-shadow:0 6px 20px rgba(0,0,0,.06); }
+
+.services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1rem; }
+.service { background:white; padding:1.2rem; border-radius:8px; box-shadow:0 8px 30px rgba(0,0,0,.06); text-align:center; }
+.s-icon { font-size:1.8rem; margin-bottom:.6rem; }
+
+.how-it-works .steps { list-style:decimal; padding-left:1.4rem; color:var(--color-text-muted); margin-top:1rem; }
+.reviews-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; margin-top:1rem; }
+.review { background:white; padding:1rem; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,.06); font-style:italic; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.review.visible { opacity: 1; transform: translateY(0); }
+.review cite { display:block; margin-top:.8rem; color:var(--color-text); font-weight:600; font-style:normal; }
+
+.stats { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:1rem; }
+.stat { background:linear-gradient(135deg,var(--color-primary),var(--color-primary-dark)); color:white; padding:1rem 1.2rem; border-radius:10px; min-width:140px; text-align:center; }
+.stat .num { font-size:1.4rem; font-weight:800; }
+.final-cta { margin-top:1rem; display:flex; gap:.8rem; align-items:center; flex-wrap:wrap; }
+
+@media (max-width:900px) {
+  .intro-hero-inner { flex-direction:column-reverse; align-items:flex-start; }
+  .intro-visual { width:100%; justify-content:flex-start; }
+}
+</style>
+
+<script>
+// Add animation to reviews when they come into view
+document.addEventListener('DOMContentLoaded', function() {
+  const reviews = document.querySelectorAll('.review');
+  
+  // Function to check if element is in viewport
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+  
+  // Function to show reviews with staggered animation
+  function showReviews() {
+    reviews.forEach((review, index) => {
+      if (isInViewport(review) && !review.classList.contains('visible')) {
+        setTimeout(() => {
+          review.classList.add('visible');
+        }, index * 200); // Stagger the animation by 200ms
+      }
+    });
+  }
+  
+  // Initial check
+  showReviews();
+  
+  // Check on scroll
+  window.addEventListener('scroll', showReviews);
+});
+</script>
+{% endblock %}

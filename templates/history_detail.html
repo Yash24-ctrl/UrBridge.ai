@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}History Detail · UrBridge.ai{% endblock %}
+{% block content %}
+  <div class="card glow main-upload-card">
+    <div class="card-header">
+      <div class="card-title">🕒 Analysis History Detail</div>
+    </div>
+    <div class="card-body">
+      {% if history_item %}
+        <div class="history-detail-header">
+          <div class="history-type">
+            {% if history_item.input_type == 'pdf' %}
+              📄 PDF Upload
+            {% elif history_item.input_type == 'manual' %}
+              ✍️ Manual Paste
+            {% elif history_item.input_type == 'manual_input' %}
+              📝 Manual Input
+            {% else %}
+              📊 Analysis
+            {% endif %}
+          </div>
+          <div class="history-date">{{ history_item.timestamp.strftime('%Y-%m-%d %H:%M') }}</div>
+        </div>
+        
+        <!-- Analytics Dashboard -->
+        {% if analytics_data %}
+          {% include 'analytics_dashboard.html' %}
+        {% endif %}
+        
+        {% if suggestions_data %}
+          <div class="suggestions-section" style="margin-top: 20px;">
+            <h3 class="suggestions-title">💡 Resume Improvement Suggestions</h3>
+            <div class="suggestions-list">
+              {% for suggestion in suggestions_data %}
+                <div class="suggestion-item suggestion-{{ suggestion.type }}">
+                  <span class="suggestion-icon">
+                    {% if suggestion.type == 'critical' %}🔴
+                    {% elif suggestion.type == 'important' %}🟡
+                    {% elif suggestion.type == 'moderate' %}🟢
+                    {% else %}ℹ️
+                    {% endif %}
+                  </span>
+                  <span class="suggestion-text">{{ suggestion.text }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+        
+        <div class="stack" style="margin-top: 30px; justify-content: center;">
+          <a href="{{ url_for('history') }}" class="btn btn-primary">← Back to History</a>
+          <a href="{{ url_for('analyzer') }}" class="btn btn-ghost">Analyze Again</a>
+        </div>
+      {% else %}
+        <div class="empty-history">
+          <div class="empty-icon">❌</div>
+          <h3>History Item Not Found</h3>
+          <p>The requested analysis history item could not be found.</p>
+          <div class="stack" style="margin-top: 20px;">
+            <a href="{{ url_for('history') }}" class="btn btn-primary">View All History</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

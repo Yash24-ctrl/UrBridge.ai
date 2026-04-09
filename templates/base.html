@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>{% block title %}Resume Quality Analyzer{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='neuronet-white-logo.jpg') }}" type="image/png" data-static-asset="true">
+  
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" data-static-asset="true">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet" data-static-asset="true">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" data-static-asset="true">
+  
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" data-static-asset="true">
+  {% block extra_css %}{% endblock %}
+  
+  <style>
+    /* Matrix Rain Effect */
+    .matrix-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.3;
+    }
+    
+    /* Particles Background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.4;
+    }
+    
+    /* Glassmorphism Effects */
+    .glass-effect {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+    }
+    
+    /* Accent color variations */
+    .accent-text { color: var(--accent); }
+    .accent-border { border-color: var(--accent); }
+    .accent-bg { background: var(--accent); }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: clamp(24px, 6vw, 32px);
+      }
+      
+      .brand-logo {
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="matrix-rain" id="matrixRain"></div>
+  <div class="particles" id="particles"></div>
+  
+  <!-- Removed overlay and hamburger menu as navbar is now permanently visible -->
+  
+  <!-- Mobile Sidebar Toggle Button -->
+  <button class="sidebar-toggle-btn" id="sidebarToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+  
+  <!-- Left Sidebar Navigation -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-content">
+      {% if session.user_id %}
+        <div class="sidebar-user">Hello, {{ session.username }}!</div>
+        <div class="sidebar-links">
+          <a href="{{ url_for('manual_input') }}" class="sidebar-link">
+            <i class="fas fa-house"></i>
+            <span class="sidebar-link-text">Home</span>
+          </a>
+          <a href="{{ url_for('about_us') }}" class="sidebar-link">
+            <i class="fas fa-circle-info"></i>
+            <span class="sidebar-link-text">About Us</span>
+          </a>
+          <a href="{{ url_for('profile') }}" class="sidebar-link">
+            <i class="fas fa-user"></i>
+            <span class="sidebar-link-text">Profile</span>
+          </a>
+          <a href="{{ url_for('pdf_upload') }}" class="sidebar-link">
+            <i class="fas fa-file-pdf"></i>
+            <span class="sidebar-link-text">PDF Upload</span>
+          </a>
+          <a href="{{ url_for('jobmatch') }}" class="sidebar-link">
+            <i class="fas fa-briefcase"></i>
+            <span class="sidebar-link-text">Job Match</span>
+          </a>
+          <a href="{{ url_for('history') }}" class="sidebar-link">
+            <i class="fas fa-history"></i>
+            <span class="sidebar-link-text">History</span>
+          </a>
+          <a href="{{ url_for('logout') }}" class="sidebar-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="sidebar-link-text">Logout</span>
+          </a>
+          <a href="{{ url_for('performance_dashboard') }}" class="sidebar-link">
+            <i class="fas fa-tachometer-alt"></i>
+            <span class="sidebar-link-text">Performance</span>
+          </a>
+          <a href="{{ url_for('notifications_page') }}" class="sidebar-link">
+            <i class="fas fa-bell"></i>
+            <span class="sidebar-link-text">Notifications</span>
+          </a>
+          <a href="{{ url_for('roadmap') }}" class="sidebar-link">
+            <i class="fas fa-road"></i>
+            <span class="sidebar-link-text">Roadmap</span>
+          </a>
+        </div>
+      {% else %}
+      <div class="sidebar-user">Guest</div>
+        <div class="sidebar-links">
+          <a href="{{ url_for('about_us') }}" class="sidebar-link">
+            <i class="fas fa-circle-info"></i>
+            <span class="sidebar-link-text">About Us</span>
+          </a>
+          <a href="{{ url_for('login') }}" class="sidebar-link">
+            <i class="fas fa-sign-in-alt"></i>
+            <span class="sidebar-link-text">Login</span>
+          </a>
+          <a href="{{ url_for('register') }}" class="sidebar-link">
+            <i class="fas fa-user-plus"></i>
+            <span class="sidebar-link-text">Register</span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- Sidebar Overlay for Mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-spacer" aria-hidden="true"></div>
+      <div class="header-brand-wrap">
+        <a href="{{ url_for('home') }}" class="brand">
+          <img src="{{ url_for('static', filename='neuronet-white-logo.jpg') }}" alt="Logo" class="brand-logo">
+        </a>
+        {% if session.user_id %}
+          <div class="nav-user">Hello, {{ session.username }}!</div>
+        {% endif %}
+      </div>
+      <div class="header-spacer" aria-hidden="true"></div>
+    </div>
+  </header>
+
+  <main class="container page main-content" id="mainContent">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="muted">© 2025 NeuronetSystems Private Limited. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Global Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-particles" id="loadingParticles"></div>
+    <div class="loader-container">
+      <div class="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+      </div>
+      <p class="loader-text">Processing your resume<span class="progress-dots"></span></p>
+      <p class="progress-steps"></p>
+    </div>
+  </div>
+  
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer data-static-script="true"></script>
+  <script src="{{ url_for('static', filename='js/responsive-sidebar.js') }}" defer data-static-script="true"></script>
+  <script data-static-script="true">
+      // Register service worker for push notifications
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+              navigator.serviceWorker.register('/static/js/service-worker.js')
+                  .then(function(registration) {
+                      console.log('Service Worker registered with scope:', registration.scope);
+                  })
+                  .catch(function(error) {
+                      console.log('Service Worker registration failed:', error);
+                  });
+          });
+      }
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

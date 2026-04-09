@@ -1,0 +1,431 @@
+{% extends "base.html" %}
+
+{% block title %}About Us · UrBridge.ai{% endblock %}
+
+{% block extra_css %}
+<style>
+  .about-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .about-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 36px;
+    background:
+      radial-gradient(circle at top right, rgba(110, 231, 255, 0.18), transparent 32%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  }
+
+  .about-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    transform: translateX(-100%);
+    animation: aboutHeroSweep 7s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .about-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(110, 231, 255, 0.25);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--primary);
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .about-title {
+    margin: 0 0 14px;
+    font-family: Orbitron, Inter, sans-serif;
+    font-size: clamp(2.2rem, 4.8vw, 4rem);
+    line-height: 1.06;
+  }
+
+  .about-title .accent {
+    color: var(--primary);
+    text-shadow: 0 0 18px rgba(110, 231, 255, 0.22);
+  }
+
+  .about-subtitle {
+    max-width: 760px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .about-panel {
+    grid-column: span 12;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+    padding: 26px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+
+  .about-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(110, 231, 255, 0.08), transparent 45%, rgba(167, 139, 250, 0.08));
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  .about-panel:hover {
+    transform: translateY(-4px);
+    border-color: rgba(110, 231, 255, 0.24);
+    box-shadow: 0 28px 55px rgba(0, 0, 0, 0.22);
+  }
+
+  .about-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-panel-wide {
+    grid-column: span 7;
+  }
+
+  .about-panel-side {
+    grid-column: span 5;
+  }
+
+  .about-panel h2 {
+    margin: 0 0 14px;
+    font-size: 1.45rem;
+  }
+
+  .about-panel p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .about-stack {
+    display: grid;
+    gap: 18px;
+  }
+
+  .story-timeline {
+    display: grid;
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    margin-top: 7px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-2));
+    box-shadow: 0 0 0 6px rgba(110, 231, 255, 0.12);
+  }
+
+  .timeline-item strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  .about-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .metric-tile {
+    padding: 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+    animation: metricPulse 5s ease-in-out infinite;
+  }
+
+  .metric-value {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--primary);
+    font-size: 1.7rem;
+    font-weight: 700;
+    font-family: Orbitron, Inter, sans-serif;
+  }
+
+  .metric-label {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .feature-list {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .feature-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(110, 231, 255, 0.22), rgba(167, 139, 250, 0.18));
+    color: var(--primary);
+    font-size: 1.1rem;
+  }
+
+  .feature-row strong {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .about-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+  }
+
+  .about-reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .about-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes aboutHeroSweep {
+    0%, 100% { transform: translateX(-100%); opacity: 0; }
+    20% { opacity: 1; }
+    55% { transform: translateX(140%); opacity: 0.7; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes metricPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(110, 231, 255, 0); }
+    50% { box-shadow: 0 0 24px rgba(110, 231, 255, 0.08); }
+  }
+
+  @media (max-width: 980px) {
+    .about-panel-wide,
+    .about-panel-side {
+      grid-column: span 12;
+    }
+
+    .about-metrics {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      padding: 26px 22px;
+    }
+
+    .about-panel {
+      padding: 22px 18px;
+    }
+
+    .timeline-item,
+    .feature-row {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-icon {
+      margin-bottom: 4px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="about-shell">
+  <section class="card about-hero about-reveal">
+    <div class="about-eyebrow">
+      <i class="fas fa-circle-info"></i>
+      <span>About UrBridge.ai</span>
+    </div>
+    <h1 class="about-title">We help people turn resumes into <span class="accent">real opportunities</span>.</h1>
+    <p class="about-subtitle">
+      UrBridge.ai was built to make resume improvement simpler, faster, and more useful for real job seekers. We combine structured analysis,
+      practical suggestions, and job-fit insights so users can understand where they stand and what to improve next.
+    </p>
+  </section>
+
+  <section class="about-grid">
+    <article class="about-panel about-panel-wide about-reveal">
+      <h2>Who We Are</h2>
+      <p>
+        UrBridge.ai is a resume intelligence platform focused on helping students, fresh graduates, and professionals present themselves more clearly.
+        We are building a guided experience around resume quality, ATS readiness, job matching, progress tracking, and career direction. Instead of giving
+        users a vague score, the platform is designed to explain what matters and help them take the next step with confidence.
+      </p>
+    </article>
+
+    <article class="about-panel about-panel-side about-reveal">
+      <h2>What Drives Us</h2>
+      <div class="about-metrics">
+        <div class="metric-tile">
+          <span class="metric-value">Clarity</span>
+          <span class="metric-label">Simple feedback users can act on quickly</span>
+        </div>
+        <div class="metric-tile">
+          <span class="metric-value">Growth</span>
+          <span class="metric-label">Suggestions that support long-term career progress</span>
+        </div>
+        <div class="metric-tile">
+          <span class="metric-value">Fit</span>
+          <span class="metric-label">Resume-to-role matching for smarter applications</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="about-panel about-panel-wide about-reveal">
+      <h2>How We Started</h2>
+      <p>
+        The idea behind UrBridge.ai came from a common problem: many capable people miss opportunities because their resumes do not communicate their value
+        well enough. Job seekers often struggle with formatting, weak wording, missing keywords, or not knowing how hiring systems evaluate them. We started
+        this platform to bridge that gap between talent and visibility by turning resume review into a guided, intelligent, and repeatable process.
+      </p>
+      <div class="story-timeline">
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div>
+            <strong>The Problem</strong>
+            Resume feedback was often slow, generic, or hard to apply in a practical way.
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div>
+            <strong>The Beginning</strong>
+            We began shaping a tool that could analyze resumes instantly and still give users specific, understandable guidance.
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+          <div>
+            <strong>The Direction</strong>
+            The platform expanded from simple scoring into a broader analyzer with job match, analytics, history, and roadmap features.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="about-panel about-panel-side about-reveal">
+      <h2>Where We Are From</h2>
+      <p>
+        UrBridge.ai is part of a product journey focused on using AI for career support and digital guidance. The platform reflects a practical,
+        builder-first approach: identify a real problem, simplify the user journey, and deliver tools that feel useful from the first interaction.
+      </p>
+    </article>
+
+    <article class="about-panel about-panel-wide about-reveal">
+      <h2>About The Analyzer</h2>
+      <p>
+        The analyzer is the core of the experience. Users can upload a resume or enter details manually, and the system evaluates structure, content,
+        skills, and presentation quality. It also helps compare resumes against job descriptions, surfaces missing areas, stores analysis history, and
+        supports continued improvement over time instead of just one-time scoring.
+      </p>
+      <div class="feature-list">
+        <div class="feature-row">
+          <div class="feature-icon"><i class="fas fa-file-lines"></i></div>
+          <div>
+            <strong>Resume Quality Review</strong>
+            Highlights strengths, weak spots, and improvement opportunities in a format users can understand quickly.
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
+          <div>
+            <strong>Job Match Insights</strong>
+            Compares resumes with job descriptions to show fit score, likely gaps, and areas to refine.
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+          <div>
+            <strong>Progress and Iteration</strong>
+            Keeps users moving forward through analytics, saved history, and guided improvements across sessions.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="about-panel about-panel-side about-reveal">
+      <h2>What We Want This To Feel Like</h2>
+      <p>
+        Fast enough to use often, clear enough to trust, and supportive enough that users always know what to do next. The goal is not only to analyze a
+        resume, but to help people feel more prepared every time they apply.
+      </p>
+      <div class="about-cta">
+        <a href="{{ url_for('manual_input') }}" class="btn btn-primary">Open Analyzer</a>
+        <a href="{{ url_for('how_it_works') }}" class="btn btn-ghost">How It Works</a>
+      </div>
+    </article>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const revealItems = document.querySelectorAll('.about-reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    revealItems.forEach((item) => observer.observe(item));
+  });
+</script>
+{% endblock %}

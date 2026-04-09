@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block title %}Manual Input · UrBridge.ai{% endblock %}
+{% block content %}
+  <section class="hero">
+    <div class="card glow">
+      <div class="card-header">
+        <div class="card-title">✏️ Manual Input</div>
+      </div>
+      <div class="card-body">
+        <p class="helper" style="margin-bottom: 30px;">
+          Fill in your resume details manually to get your resume quality score and improvement suggestions.
+        </p>
+        
+        <form method="post" action="{{ url_for('manual_input') }}" class="row" id="manualForm">
+          <div class="row two">
+            <div class="field">
+              <label class="label" for="years_of_experience">Years of Experience</label>
+              <input class="input" id="years_of_experience" name="years_of_experience"  step="0.1" min="0" placeholder="e.g. 3.5" required>
+            </div>
+            <div class="field">
+              <label class="label" for="education_level">Education Level</label>
+              <select class="input" id="education_level" name="education_level" required>
+                <option value="">Select Education Level</option>
+                <option value="Diploma">Diploma</option>
+                <option value="Bachelors">Bachelors</option>
+                <option value="Masters">Masters</option>
+                <option value="Post Graduate">Post Graduate</option>
+                <option value="custom">Other</option>
+              </select>
+              <input class="input" id="custom_education_level" name="custom_education_level" type="text" placeholder="Enter your education level" style="display: none; margin-top: 10px;">
+            </div>
+          </div>
+
+          <div class="row two">
+            <div class="field">
+              <label class="label" for="skills">Skills</label>
+              <textarea class="input textarea" id="skills" name="skills" rows="4" placeholder="e.g. Python, Flask, ML, Data Analysis, Project Management" required></textarea>
+            </div>
+            <div class="field">
+              <label class="label" for="certifications">Full name of the certificates you have</label>
+              <input class="input" id="certifications" name="certifications" min="0" step="1" placeholder="e.g. AWS Certified Solutions Architect, Google Analytics Certification">
+            </div>
+          </div>
+
+          <div class="row two">
+            <div class="field">
+              <label class="label" for="projects_completed">Final Year Project Description</label>
+              <textarea class="input textarea" id="projects_completed" name="projects_completed" rows="3" placeholder="Describe your final year project (technologies used, challenges, outcomes)" required></textarea>
+            </div>
+            <div class="field">
+              <label class="label" for="desired_job_role">Desired Job Role</label>
+              <input class="input" id="desired_job_role" name="desired_job_role" type="text" placeholder="e.g. Data Scientist">
+            </div>
+          </div>
+
+          <div class="row two">
+            <div class="field">
+              <label class="label" for="current_location_city">Current City</label>
+              <input class="input" id="current_location_city" name="current_location_city" type="text" placeholder="e.g. Pune">
+            </div>
+            <div class="field">
+              <label class="label" for="previous_job_title">Previous Job Title</label>
+              <input class="input" id="previous_job_title" name="previous_job_title" type="text" placeholder="e.g. Backend Engineer">
+            </div>
+          </div>
+
+          <div class="stack">
+            <button class="btn btn-primary" type="submit">Analyze</button>
+            <a class="btn btn-ghost" href="{{ url_for('analyzer') }}">Back to Upload</a>
+            <a class="btn btn-ghost" href="{{ url_for('logout') }}">Logout</a>
+          </div>
+        </form>
+
+        {% if prediction_text %}
+          <div class="result {% if error %}result-error{% elif warning %}result-warning{% endif %}" aria-live="polite" style="margin-top: 20px;">
+            {{ prediction_text|replace('\n', '<br>')|safe }}
+          </div>
+        {% endif %}
+
+        <!-- Analytics Dashboard -->
+        {% if analytics %}
+          {% set analytics_data = analytics %}
+          {% include 'analytics_dashboard.html' %}
+        {% endif %}
+
+        {% if suggestions %}
+          <div class="suggestions-section" style="margin-top: 20px;">
+            <h3 class="suggestions-title">💡 Resume Improvement Suggestions</h3>
+            <div class="suggestions-list">
+              {% for suggestion in suggestions %}
+                <div class="suggestion-item suggestion-{{ suggestion.type }}">
+                  <span class="suggestion-icon">
+                    {% if suggestion.type == 'critical' %}🔴
+                    {% elif suggestion.type == 'important' %}🟡
+                    {% elif suggestion.type == 'moderate' %}🟢
+                    {% else %}ℹ️
+                    {% endif %}
+                  </span>
+                  <span class="suggestion-text">{{ suggestion.text }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- Enhanced How It Works Section -->
+    <div class="card glow">
+      <div class="card-header">
+        <div class="card-title">How it works</div>
+      </div>
+      <div class="card-body">
+        <p class="helper">Enter your resume details manually. We process your inputs and predict a resume quality score on a 1–100 scale with personalized improvement suggestions.</p>
+        
+        <div class="how-it-works-content">
+          <div class="steps-grid">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-title">Enter Details</div>
+              <div class="step-desc">Fill in your professional experience, skills, education, and other relevant information.</div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-title">AI Analysis</div>
+              <div class="step-desc">Our machine learning model analyzes your resume against industry standards.</div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-title">Get Score</div>
+              <div class="step-desc">Receive a comprehensive quality score from 1-100 with detailed breakdown.</div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-title">Improve</div>
+              <div class="step-desc">Follow personalized suggestions to enhance your resume quality.</div>
+            </div>
+          </div>
+          
+          <div class="kpi">
+            <div class="kpi-item"><div class="muted">Model</div><div class="kpi-val">Deployed</div></div>
+            <div class="kpi-item"><div class="muted">Latency</div><div class="kpi-val">Low</div></div>
+            <div class="kpi-item"><div class="muted">Privacy</div><div class="kpi-val">Local</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">User Profile</h2>
+  </div>
+  <div class="card-body">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ 'danger' if 'error' in category else 'success' if 'success' in category else category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    
+    <!-- Display error message if present -->
+    {% if error %}
+      <div class="alert alert-danger">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    <form method="POST">
+      <div class="row two">
+        <div class="field">
+          <label class="label">Username</label>
+          <input type="text" class="input" value="{{ user.username }}" disabled>
+        </div>
+        
+        <div class="field">
+          <label class="label">Email</label>
+          <input type="email" class="input" value="{{ user.email }}" disabled>
+        </div>
+        
+        <div class="field">
+          <label class="label">First Name *</label>
+          <input type="text" name="first_name" class="input" value="{{ user.first_name or '' }}" required>
+        </div>
+        
+        <div class="field">
+          <label class="label">Last Name *</label>
+          <input type="text" name="last_name" class="input" value="{{ user.last_name or '' }}" required>
+        </div>
+        
+        <div class="field">
+          <label class="label">Country Code *</label>
+          <select name="country_code" id="country_code" class="input" required onchange="updatePhoneValidation()">
+            <option value="">Select Country Code</option>
+            <option value="+91" data-length="10" {% if user.phone and user.phone.startswith('+91') %}selected{% endif %}>India (+91) - 10 digits</option>
+            <option value="+1" data-length="10" {% if user.phone and user.phone.startswith('+1') %}selected{% endif %}>USA/Canada (+1) - 10 digits</option>
+            <option value="+44" data-length="10" {% if user.phone and user.phone.startswith('+44') %}selected{% endif %}>United Kingdom (+44) - 10 digits</option>
+            <option value="+61" data-length="9" {% if user.phone and user.phone.startswith('+61') %}selected{% endif %}>Australia (+61) - 9 digits</option>
+            <option value="+81" data-length="10" {% if user.phone and user.phone.startswith('+81') %}selected{% endif %}>Japan (+81) - 10 digits</option>
+            <option value="+49" data-length="10" {% if user.phone and user.phone.startswith('+49') %}selected{% endif %}>Germany (+49) - 10 digits</option>
+            <option value="+33" data-length="9" {% if user.phone and user.phone.startsWith('+33') %}selected{% endif %}>France (+33) - 9 digits</option>
+            <option value="+39" data-length="10" {% if user.phone and user.phone.startswith('+39') %}selected{% endif %}>Italy (+39) - 10 digits</option>
+            <option value="+34" data-length="9" {% if user.phone and user.phone.startswith('+34') %}selected{% endif %}>Spain (+34) - 9 digits</option>
+            <option value="+86" data-length="11" {% if user.phone and user.phone.startswith('+86') %}selected{% endif %}>China (+86) - 11 digits</option>
+            <option value="+82" data-length="10" {% if user.phone and user.phone.startswith('+82') %}selected{% endif %}>South Korea (+82) - 10 digits</option>
+            <option value="+65" data-length="8" {% if user.phone and user.phone.startswith('+65') %}selected{% endif %}>Singapore (+65) - 8 digits</option>
+            <option value="+60" data-length="9" {% if user.phone and user.phone.startswith('+60') %}selected{% endif %}>Malaysia (+60) - 9 digits</option>
+            <option value="+66" data-length="9" {% if user.phone and user.phone.startswith('+66') %}selected{% endif %}>Thailand (+66) - 9 digits</option>
+            <option value="+92" data-length="10" {% if user.phone and user.phone.startsWith('+92') %}selected{% endif %}>Pakistan (+92) - 10 digits</option>
+          </select>
+        </div>
+        
+        <div class="field">
+          <label class="label">Phone Number * <span id="phone_length_label">(10 digits only)</span></label>
+          <input type="tel" name="phone" id="phone" class="input" value="{% if user.phone %}{{ user.phone|replace('+91', '')|replace('+1', '')|replace('+44', '')|replace('+61', '')|replace('+81', '')|replace('+49', '')|replace('+33', '')|replace('+39', '')|replace('+34', '')|replace('+86', '')|replace('+82', '')|replace('+65', '')|replace('+60', '')|replace('+66', '')|replace('+92', '') }}{% endif %}" placeholder="Enter phone number" maxlength="10" pattern="[0-9]{10}" title="Phone number length depends on country code" required>
+          <small class="helper" id="phone_helper">Enter exactly 10 digits for India (no country code here)</small>
+          <small class="helper" id="phone_error_helper" style="color: #ef4444; display: none;"></small>
+        </div>
+        
+        <div class="field">
+          <label class="label">Bio (Optional)</label>
+          <textarea name="bio" class="textarea">{{ user.bio or '' }}</textarea>
+        </div>
+      </div>
+      
+      <div class="field mt-4">
+        <button type="submit" class="btn btn-primary">Save Profile</button>
+      </div>
+    </form>
+    
+    <hr class="my-4">
+    
+    <h3 class="mb-3">Security Settings</h3>
+    
+    <form method="POST">
+      <div class="field">
+        <label class="label">
+          Two-Factor Authentication
+          <span class="badge {{ 'badge-success' if user.two_factor_enabled else 'badge-secondary' }}">
+            {{ 'Enabled' if user.two_factor_enabled else 'Disabled' }}
+          </span>
+        </label>
+        <p class="helper">Add an extra layer of security to your account.</p>
+        {% if user.two_factor_enabled %}
+          <button type="submit" name="disable_2fa" class="btn btn-danger">Disable 2FA</button>
+        {% else %}
+          <button type="submit" name="enable_2fa" class="btn btn-primary">Enable 2FA</button>
+        {% endif %}
+      </div>
+    </form>
+    
+    <hr class="my-4">
+    
+    <h3 class="mb-3">Data Export</h3>
+    
+    <div class="field">
+      <p class="helper">Export all your data in various formats</p>
+      <div class="stack">
+        <a href="{{ url_for('export_user_data_json') }}" class="btn btn-primary">Export as JSON</a>
+        <a href="{{ url_for('export_user_data_csv') }}" class="btn btn-primary">Export as CSV</a>
+        <a href="{{ url_for('export_user_data_excel') }}" class="btn btn-primary">Export as Excel</a>
+        <a href="{{ url_for('export_user_data_pdf') }}" class="btn btn-primary">Export as PDF</a>
+        <a href="{{ url_for('export_user_data_zip') }}" class="btn btn-primary">Export All Formats (ZIP)</a>
+      </div>
+    </div>
+    
+    <h3 class="mb-3">Encrypted Data Export</h3>
+    
+    <div class="field">
+      <p class="helper">Export all your data in encrypted formats (End-to-End Encrypted)</p>
+      <div class="stack">
+        <a href="{{ url_for('export_user_data_encrypted_json') }}" class="btn btn-primary">Export as Encrypted JSON</a>
+        <a href="{{ url_for('export_user_data_encrypted_csv') }}" class="btn btn-primary">Export as Encrypted CSV</a>
+        <a href="{{ url_for('export_user_data_encrypted_excel') }}" class="btn btn-primary">Export as Encrypted Excel</a>
+        <a href="{{ url_for('export_user_data_encrypted_pdf') }}" class="btn btn-primary">Export as Encrypted PDF</a>
+      </div>
+    </div>
+    
+    <hr class="my-4">
+    
+    <h3 class="mb-3">Push Notifications</h3>
+    
+    <div class="field">
+      <p class="helper">Manage your push notification settings</p>
+      <div class="stack">
+        <button class="btn btn-primary" onclick="enableNotifications()">Enable Notifications</button>
+        <button class="btn btn-secondary" onclick="disableNotifications()">Disable Notifications</button>
+        <a href="{{ url_for('notifications_page') }}" class="btn btn-outline">View Notification History</a>
+      </div>
+      <div id="notificationStatus" class="mt-3"></div>
+    </div>
+    
+    <hr class="my-4">
+    
+    <h3 class="mb-3">Account Actions</h3>
+    
+    <div class="field">
+      {% if profile_complete %}
+        <a href="{{ url_for('analyzer') }}" class="btn btn-primary">Go to Analyzer</a>
+      {% else %}
+        <p class="helper">Complete your profile to access the analyzer.</p>
+      {% endif %}
+      <a href="{{ url_for('logout') }}" class="btn btn-ghost">Logout</a>
+      <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Account</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function confirmDelete() {
+  if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+    fetch("{{ url_for('delete_account') }}", {
+      method: "POST"
+    }).then(response => {
+      if (response.ok) {
+        window.location.href = "{{ url_for('login') }}";
+      } else {
+        alert("Failed to delete account. Please try again.");
+      }
+    });
+  }
+}
+
+// Enable push notifications
+function enableNotifications() {
+  const statusDiv = document.getElementById('notificationStatus');
+  
+  // Check if browser supports notifications
+  if (!('Notification' in window)) {
+    statusDiv.innerHTML = '<div class="alert alert-danger">Your browser does not support notifications.</div>';
+    return;
+  }
+  
+  // Request permission
+  Notification.requestPermission().then(permission => {
+    if (permission === 'granted') {
+      // In a real implementation, you would register the device token with the server
+      // For now, we'll just show a success message
+      statusDiv.innerHTML = '<div class="alert alert-success">Notifications enabled successfully!</div>';
+      
+      // Simulate registering device token
+      setTimeout(() => {
+        statusDiv.innerHTML = '<div class="alert alert-info">In a real application, your device token would be registered with the server.</div>';
+      }, 2000);
+    } else {
+      statusDiv.innerHTML = '<div class="alert alert-warning">Notifications permission denied.</div>';
+    }
+  });
+}
+
+// Disable push notifications
+function disableNotifications() {
+  const statusDiv = document.getElementById('notificationStatus');
+  
+  // In a real implementation, you would unregister the device token with the server
+  // For now, we'll just show a message
+  statusDiv.innerHTML = '<div class="alert alert-info">Notifications disabled. In a real application, your device token would be unregistered from the server.</div>';
+}
+
+// Phone number validation - dynamic length based on country code
+const phoneInput = document.getElementById('phone');
+const countryCodeSelect = document.getElementById('country_code');
+const phoneLengthLabel = document.getElementById('phone_length_label');
+const phoneHelper = document.getElementById('phone_helper');
+const phoneErrorHelper = document.getElementById('phone_error_helper');
+
+// Get required phone length for selected country
+function getRequiredPhoneLength() {
+  const selectedOption = countryCodeSelect.options[countryCodeSelect.selectedIndex];
+  return parseInt(selectedOption.getAttribute('data-length')) || 10;
+}
+
+// Update phone validation when country code changes
+function updatePhoneValidation() {
+  const requiredLength = getRequiredPhoneLength();
+  const countryName = countryCodeSelect.options[countryCodeSelect.selectedIndex].text.split('-')[0].trim();
+  
+  // Update UI labels
+  phoneLengthLabel.textContent = `(${requiredLength} digits only)`;
+  phoneHelper.textContent = `Enter exactly ${requiredLength} digits for ${countryName} (no country code here)`;
+  
+  // Update input attributes
+  phoneInput.maxLength = requiredLength;
+  phoneInput.pattern = `[0-9]{${requiredLength}}`;
+  phoneInput.title = `Phone number must be exactly ${requiredLength} digits for selected country`;
+  
+  // Clear any existing errors
+  phoneErrorHelper.style.display = 'none';
+  phoneErrorHelper.textContent = '';
+  
+  // Validate current value if it exists
+  const currentValue = phoneInput.value.replace(/[^0-9]/g, '');
+  if (currentValue && currentValue.length !== requiredLength) {
+    // Trim or warn if current value doesn't match new requirement
+    if (currentValue.length > requiredLength) {
+      phoneInput.value = currentValue.slice(0, requiredLength);
+      phoneErrorHelper.textContent = `⚠️ Phone number trimmed from ${currentValue.length} to ${requiredLength} digits based on selected country.`;
+      phoneErrorHelper.style.display = 'block';
+      setTimeout(() => {
+        phoneErrorHelper.style.display = 'none';
+      }, 5000);
+    }
+  }
+}
+
+if (phoneInput) {
+  // Prevent entering more than allowed characters
+  phoneInput.addEventListener('input', function(e) {
+    const requiredLength = getRequiredPhoneLength();
+    
+    // Remove any non-digit characters
+    this.value = this.value.replace(/[^0-9]/g, '');
+    
+    // Limit to required length
+    if (this.value.length > requiredLength) {
+      this.value = this.value.slice(0, requiredLength);
+      // Show error message
+      phoneErrorHelper.textContent = `❌ Phone number cannot exceed ${requiredLength} digits for selected country!`;
+      phoneErrorHelper.style.display = 'block';
+      
+      // Hide error after 3 seconds
+      setTimeout(() => {
+        phoneErrorHelper.style.display = 'none';
+      }, 3000);
+    } else {
+      phoneErrorHelper.style.display = 'none';
+    }
+  });
+  
+  // Validate on blur
+  phoneInput.addEventListener('blur', function() {
+    const requiredLength = getRequiredPhoneLength();
+    const phoneValue = this.value.replace(/[^0-9]/g, '');
+    
+    if (phoneValue.length === 0) {
+      phoneErrorHelper.textContent = '❌ Phone number is required.';
+      phoneErrorHelper.style.display = 'block';
+    } else if (phoneValue.length !== requiredLength) {
+      phoneErrorHelper.textContent = `❌ Phone number must be exactly ${requiredLength} digits for selected country. You entered ${phoneValue.length} digit(s).`;
+      phoneErrorHelper.style.display = 'block';
+    } else {
+      // Remove error if valid
+      phoneErrorHelper.style.display = 'none';
+    }
+  });
+  
+  // Clear error when user starts typing again
+  phoneInput.addEventListener('focus', function() {
+    phoneErrorHelper.style.display = 'none';
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,370 @@
+<div class="analytics-dashboard">
+  <h3 class="analytics-title">📊 Advanced Analytics Dashboard</h3>
+  
+  {% if analytics_data %}
+  <div class="analytics-grid">
+    <!-- Overall Score Card -->
+    <div class="analytics-card">
+      <h4 class="card-title">📈 Overall Resume Score</h4>
+      <div class="score-visualization">
+        <div class="score-circle {% if analytics_data.comprehensive_score and analytics_data.comprehensive_score.total_score >= 76 %}green{% elif analytics_data.comprehensive_score and analytics_data.comprehensive_score.total_score >= 51 %}yellow{% elif analytics_data.comprehensive_score and analytics_data.comprehensive_score.total_score >= 26 %}orange{% else %}red{% endif %}">
+          <div class="score-text">{{ analytics_data.comprehensive_score.total_score if analytics_data.comprehensive_score else 'N/A' }}</div>
+        </div>
+        <div class="score-label">Out of 100</div>
+        <div class="score-description">
+          {% if analytics_data.comprehensive_score %}
+            {% if analytics_data.comprehensive_score.total_score >= 76 %}
+              Excellent Resume Quality
+            {% elif analytics_data.comprehensive_score.total_score >= 51 %}
+              Good Resume Quality
+            {% elif analytics_data.comprehensive_score.total_score >= 26 %}
+              Average Resume Quality
+            {% else %}
+              Needs Improvement
+            {% endif %}
+          {% else %}
+            No score data available
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Skill Gap Analysis Card -->
+    <div class="analytics-card">
+      <h4 class="card-title">🎯 Skill Gap Analysis</h4>
+      <div class="skill-analysis">
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Skills Match</span>
+            <span>{{ analytics_data.skill_analysis.skill_match_percentage if analytics_data.skill_analysis else 'N/A' }}%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill {% if analytics_data.skill_analysis and analytics_data.skill_analysis.skill_match_percentage >= 70 %}excellent{% elif analytics_data.skill_analysis and analytics_data.skill_analysis.skill_match_percentage >= 50 %}good{% else %}low{% endif %}" 
+                 data-width="{{ analytics_data.skill_analysis.skill_match_percentage if analytics_data.skill_analysis else 0 }}"></div>
+          </div>
+        </div>
+        
+        {% if analytics_data.skill_analysis %}
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">{{ analytics_data.skill_analysis.user_skills_count }}</div>
+            <div class="metric-label">Your Skills</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">{{ analytics_data.skill_analysis.field_skills_count }}</div>
+            <div class="metric-label">Field Skills</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">{{ analytics_data.skill_analysis.skill_gap }}</div>
+            <div class="metric-label">Skills Gap</div>
+          </div>
+        </div>
+        
+        {% if analytics_data.skill_analysis.missing_field_skills %}
+          <div class="missing-skills">
+            <h5>Recommended Skills to Add:</h5>
+            <ul>
+              {% for skill in analytics_data.skill_analysis.missing_field_skills[:5] %}
+                <li>{{ skill }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    
+    <!-- Experience Analysis Card -->
+    <div class="analytics-card">
+      <h4 class="card-title">💼 Experience Analysis</h4>
+      {% if analytics_data.experience_analysis %}
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.experience_analysis.years_experience }}</div>
+          <div class="metric-label">Years Exp</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.experience_analysis.experience_score }}</div>
+          <div class="metric-label">Score</div>
+        </div>
+      </div>
+      
+      <div class="analysis-text">
+        <p>Scoring: {{ analytics_data.experience_analysis.experience_score_text }}</p>
+      </div>
+      {% else %}
+      <p>No experience analysis data available.</p>
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- Detailed Metrics Grid -->
+  <div class="analytics-grid">
+    <!-- Certifications Card -->
+    <div class="analytics-card">
+      <h4 class="card-title">📜 Certifications</h4>
+      {% if analytics_data.certification_analysis %}
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.certification_analysis.certifications_count|int }}</div>
+          <div class="metric-label">Count</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.certification_analysis.certification_score }}</div>
+          <div class="metric-label">Score</div>
+        </div>
+      </div>
+      
+      <div class="analysis-text">
+        <p>Scoring: {{ analytics_data.certification_analysis.certification_score_text }}</p>
+      </div>
+      {% else %}
+      <p>No certification data available.</p>
+      {% endif %}
+    </div>
+    
+    <!-- Projects Card -->
+    <div class="analytics-card">
+      <h4 class="card-title">🚀 Projects</h4>
+      {% if analytics_data.project_analysis %}
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.project_analysis.projects_count|int }}</div>
+          <div class="metric-label">Detected</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.project_analysis.project_score }}</div>
+          <div class="metric-label">Score</div>
+        </div>
+      </div>
+      
+      <div class="analysis-text">
+        <p>Scoring: {{ analytics_data.project_analysis.project_score_text }}</p>
+      </div>
+      {% else %}
+      <p>No project data available.</p>
+      {% endif %}
+    </div>
+    
+    <!-- Education Card -->
+    <div class="analytics-card">
+      <h4 class="card-title">🎓 Education</h4>
+      {% if analytics_data.education_analysis %}
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.education_analysis.education_score }}</div>
+          <div class="metric-label">Score</div>
+        </div>
+      </div>
+      
+      <div class="analysis-text">
+        <p>Education Level: {{ analytics_data.education_analysis.education_level }}</p>
+        <p>Scoring: {{ analytics_data.education_analysis.education_score_text }}</p>
+      </div>
+      {% else %}
+      <p>No education data available.</p>
+      {% endif %}
+    </div>
+    
+    <!-- Languages Card -->
+    <div class="analytics-card">
+      <h4 class="card-title">🌐 Languages</h4>
+      {% if analytics_data.language_analysis %}
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.language_analysis.languages_count }}</div>
+          <div class="metric-label">Known</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.language_analysis.language_score }}</div>
+          <div class="metric-label">Score</div>
+        </div>
+      </div>
+      
+      <div class="analysis-text">
+        <p>Scoring: {{ analytics_data.language_analysis.language_score_text }}</p>
+      </div>
+      {% else %}
+      <p>No language data available.</p>
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- Roadmap Summary Card -->
+  <div class="analytics-grid">
+    <div class="analytics-card">
+      <h4 class="card-title">🛣️ Development Roadmap</h4>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">
+            {% if roadmap %}
+              {{ roadmap.steps|length }}
+            {% elif analytics_data.roadmap %}
+              {{ analytics_data.roadmap.steps|length }}
+            {% else %}
+              0
+            {% endif %}
+          </div>
+          <div class="metric-label">Steps</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">
+            {% if roadmap %}
+              {{ "%.0f"|format(roadmap.progress_percentage) }}%
+            {% elif analytics_data.roadmap %}
+              {{ "%.0f"|format(analytics_data.roadmap.progress_percentage) }}%
+            {% else %}
+              0%
+            {% endif %}
+          </div>
+          <div class="metric-label">Complete</div>
+        </div>
+      </div>
+      
+      <div class="analysis-text">
+        {% if roadmap %}
+          <p>Your personalized roadmap to become a {{ roadmap.job_role }}</p>
+          <a href="{{ url_for('roadmap') }}" class="btn btn-primary" style="margin-top: 15px;">View Full Roadmap</a>
+        {% elif analytics_data.roadmap %}
+          <p>Your personalized roadmap to become a {{ analytics_data.roadmap.job_role }}</p>
+          <a href="{{ url_for('roadmap') }}" class="btn btn-primary" style="margin-top: 15px;">View Full Roadmap</a>
+        {% else %}
+          <p>Generate a personalized development roadmap</p>
+          <button onclick="generateRoadmapFromDashboard()" class="btn btn-primary" style="margin-top: 15px;">Generate Roadmap</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  <!-- Job Role Matching Section -->
+  {% if analytics_data.job_role_matching and analytics_data.job_role_matching.desired_job_role %}
+  <div class="analytics-grid">
+    <div class="analytics-card">
+      <h4 class="card-title">💼 Job Role Matching</h4>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.job_role_matching.desired_job_role }}</div>
+          <div class="metric-label">Target Role</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">{{ analytics_data.job_role_matching.skill_match_percentage }}%</div>
+          <div class="metric-label">Skill Match</div>
+        </div>
+      </div>
+      
+      {% if analytics_data.job_role_matching.field_specific_skills %}
+      <div class="skill-comparison">
+        <h5>Field-Specific Skills for {{ analytics_data.job_role_matching.desired_job_role }}:</h5>
+        <div class="skills-container">
+          {% for skill in analytics_data.job_role_matching.field_specific_skills[:15] %}
+            <span class="skill-tag {% if skill in analytics_data.job_role_matching.user_skills %}matched{% else %}missing{% endif %}">
+              {{ skill }}
+            </span>
+          {% endfor %}
+        </div>
+        
+        {% if analytics_data.job_role_matching.missing_skills %}
+        <div class="missing-skills-section">
+          <h5>Missing Skills to Acquire:</h5>
+          <ul>
+            {% for skill in analytics_data.job_role_matching.missing_skills %}
+              <li>{{ skill }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+  
+  <!-- Detailed Breakdown -->
+  <div class="analytics-card detailed-breakdown">
+    <h4 class="card-title">📋 Detailed Score Breakdown</h4>
+    {% if analytics_data.comprehensive_score %}
+    <div class="breakdown-grid">
+      <div class="breakdown-item">
+        <span class="breakdown-label">Experience (0-15%)</span>
+        <span class="breakdown-value">{{ analytics_data.comprehensive_score.experience_score }}/15</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-label">Skills (0-20%)</span>
+        <span class="breakdown-value">{{ analytics_data.comprehensive_score.skill_score }}/20</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-label">Certifications (0-25%)</span>
+        <span class="breakdown-value">{{ analytics_data.comprehensive_score.certification_score }}/25</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-label">Projects (0-20%)</span>
+        <span class="breakdown-value">{{ analytics_data.comprehensive_score.project_score }}/20</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-label">Education (0-25%)</span>
+        <span class="breakdown-value">{{ analytics_data.comprehensive_score.education_score }}/25</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-label">Languages (0-10%)</span>
+        <span class="breakdown-value">{{ analytics_data.comprehensive_score.language_score }}/10</span>
+      </div>
+    </div>
+    
+    <div class="scoring-details">
+      <h5>Scoring Details:</h5>
+      <ul>
+        <li>Skills: {{ analytics_data.comprehensive_score.skill_score_text }}</li>
+        <li>Experience: {{ analytics_data.experience_analysis.experience_score_text if analytics_data.experience_analysis else 'N/A' }}</li>
+        <li>Projects: {{ analytics_data.project_analysis.project_score_text if analytics_data.project_analysis else 'N/A' }}</li>
+        <li>Education: {{ analytics_data.education_analysis.education_score_text if analytics_data.education_analysis else 'N/A' }}</li>
+        <li>Certifications: {{ analytics_data.certification_analysis.certification_score_text if analytics_data.certification_analysis else 'N/A' }}</li>
+        <li>Languages: {{ analytics_data.language_analysis.language_score_text if analytics_data.language_analysis else 'N/A' }}</li>
+      </ul>
+    </div>
+    {% else %}
+    <p>No detailed breakdown data available.</p>
+    {% endif %}
+  </div>
+  {% else %}
+  <div class="empty-history">
+    <div class="empty-icon">📊</div>
+    <h3>No Analytics Data Available</h3>
+    <p>Analytics data could not be generated for this analysis.</p>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  // Set progress bar widths dynamically to avoid CSS template syntax issues
+  document.addEventListener('DOMContentLoaded', function() {
+    const progressBars = document.querySelectorAll('.progress-bar-fill[data-width]');
+    progressBars.forEach(function(bar) {
+      const width = bar.getAttribute('data-width');
+      if (width) {
+        bar.style.width = width + '%';
+      }
+    });
+  });
+  
+  function generateRoadmapFromDashboard() {
+    fetch('/api/roadmap/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Reload the page to show the new roadmap
+        location.reload();
+      } else {
+        alert('Failed to generate roadmap: ' + data.error);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('An error occurred while generating roadmap');
+    });
+  }
+</script>

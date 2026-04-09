@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}Resume Analyzer · UrBridge.ai{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="card glow main-analyzer-card">
+    <div class="card-header">
+      <div class="card-title">🤖 AI Resume Analyzer</div>
+    </div>
+    <div class="card-body">
+      <p class="helper" style="margin-bottom: 30px; text-align: center;">
+        Choose your preferred method to analyze your resume and get instant quality insights
+      </p>
+      
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0;">
+        <!-- PDF Upload Option -->
+        <a href="{{ url_for('pdf_upload') }}" class="card analyzer-option-card glass-effect hover-lift">
+          <div class="card-body" style="text-align: center; padding: 30px 20px;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">📄</div>
+            <h3 class="card-title" style="margin: 10px 0 15px 0;">PDF Upload</h3>
+            <p class="muted" style="margin-bottom: 20px; line-height: 1.5;">
+              Upload your resume as PDF. Our advanced parser extracts all relevant information automatically.
+            </p>
+            <div class="kpi-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;">
+              <div class="kpi-item text-center">
+                <div class="muted small">Format</div>
+                <div class="kpi-val">PDF</div>
+              </div>
+              <div class="kpi-item text-center">
+                <div class="muted small">Speed</div>
+                <div class="kpi-val">Fast</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Manual Input Option -->
+        <a href="{{ url_for('manual_input') }}" class="card analyzer-option-card glass-effect hover-lift">
+          <div class="card-body" style="text-align: center; padding: 30px 20px;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">✏️</div>
+            <h3 class="card-title" style="margin: 10px 0 15px 0;">Manual Input</h3>
+            <p class="muted" style="margin-bottom: 20px; line-height: 1.5;">
+              Enter your resume details manually for more precise control over the information analyzed.
+            </p>
+            <div class="kpi-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;">
+              <div class="kpi-item text-center">
+                <div class="muted small">Control</div>
+                <div class="kpi-val">Full</div>
+              </div>
+              <div class="kpi-item text-center">
+                <div class="muted small">Accuracy</div>
+                <div class="kpi-val">High</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        
+        <!-- Job Matching Option -->
+        <a href="{{ url_for('jobmatch') }}" class="card analyzer-option-card glass-effect hover-lift">
+          <div class="card-body" style="text-align: center; padding: 30px 20px;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">💼</div>
+            <h3 class="card-title" style="margin: 10px 0 15px 0;">Job Matching</h3>
+            <p class="muted" style="margin-bottom: 20px; line-height: 1.5;">
+              Match your resume against job descriptions to see compatibility scores and improvement suggestions.
+            </p>
+            <div class="kpi-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;">
+              <div class="kpi-item text-center">
+                <div class="muted small">Fit Score</div>
+                <div class="kpi-val">97%</div>
+              </div>
+              <div class="kpi-item text-center">
+                <div class="muted small">ATS Pass</div>
+                <div class="kpi-val">95%</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      
+      <div class="divider" style="margin: 30px 0;">Or paste your resume text directly</div>
+      
+      <!-- Direct Text Input -->
+      <form method="post" action="{{ url_for('analyzer') }}" class="resume-form">
+        <div class="field">
+          <label for="resume_text" class="label">Resume Content</label>
+          <textarea id="resume_text" name="resume_text" class="input textarea" rows="10" placeholder="Paste your resume text here...">{{ request.form.get('resume_text', '') }}</textarea>
+        </div>
+        
+        <div class="form-actions" style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="submit" class="btn btn-primary">Analyze Resume</button>
+          <button type="button" id="clearResume" class="btn btn-ghost">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+document.getElementById('clearResume').addEventListener('click', function () {
+  document.getElementById('resume_text').value = '';
+});
+
+// Add hover effects to cards
+const optionCards = document.querySelectorAll('.analyzer-option-card');
+optionCards.forEach(card => {
+  card.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateY(-5px)';
+  });
+  
+  card.addEventListener('mouseleave', function() {
+    this.style.transform = 'translateY(0)';
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block title %}Analyzing Job Match · UrBridge.ai{% endblock %}
+{% block content %}
+  <div class="futuristic-loading-container">
+    <div class="loading-header">
+      <h1 class="loading-title">🧠 NeuroMetricsAI</h1>
+      <p class="loading-subtitle">Advanced Job Matching Analysis in Progress</p>
+    </div>
+    
+    <div class="loading-content">
+      <div class="neural-network-container">
+        <div class="neural-node node-1"></div>
+        <div class="neural-node node-2"></div>
+        <div class="neural-node node-3"></div>
+        <div class="neural-node node-4"></div>
+        <div class="neural-node node-5"></div>
+        <div class="neural-connections">
+          <div class="connection-line line-1"></div>
+          <div class="connection-line line-2"></div>
+          <div class="connection-line line-3"></div>
+          <div class="connection-line line-4"></div>
+        </div>
+      </div>
+      
+      <div class="analysis-stages">
+        <div class="stage stage-1 active">
+          <div class="stage-icon">📊</div>
+          <div class="stage-content">
+            <h3>Resume Parsing</h3>
+            <p>Extracting key information from your resume</p>
+          </div>
+        </div>
+        
+        <div class="stage stage-2">
+          <div class="stage-icon">🔍</div>
+          <div class="stage-content">
+            <h3>Job Description Analysis</h3>
+            <p>Analyzing requirements and qualifications</p>
+          </div>
+        </div>
+        
+        <div class="stage stage-3">
+          <div class="stage-icon">⚡</div>
+          <div class="stage-content">
+            <h3>Skill Matching</h3>
+            <p>Comparing your skills with job requirements</p>
+          </div>
+        </div>
+        
+        <div class="stage stage-4">
+          <div class="stage-icon">🎯</div>
+          <div class="stage-content">
+            <h3>Fit Score Calculation</h3>
+            <p>Generating your personalized job match score</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="overall-progress">
+        <div class="progress-label">
+          <span>Analysis Progress</span>
+          <span class="progress-percent">0%</span>
+        </div>
+        <div class="overall-progress-bar">
+          <div class="overall-progress-fill"></div>
+        </div>
+      </div>
+      
+      <div class="loading-message">
+        <p class="message-text">Initializing neural networks...</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Progress animation
+    const progressFill = document.querySelector('.overall-progress-fill');
+    const progressPercent = document.querySelector('.progress-percent');
+    const messageText = document.querySelector('.message-text');
+    const stages = document.querySelectorAll('.stage');
+    
+    // Messages for each stage
+    const messages = [
+      "Initializing neural networks...",
+      "Parsing resume data...",
+      "Analyzing job description...",
+      "Matching skills and qualifications...",
+      "Calculating compatibility score...",
+      "Generating recommendations...",
+      "Finalizing analysis..."
+    ];
+    
+    let progress = 0;
+    let messageIndex = 0;
+    let currentStage = 0;
+    
+    // Update progress function
+    function updateProgress() {
+      progress += Math.random() * 5 + 2; // Random increment between 2-7%
+      
+      if (progress >= 100) {
+        progress = 100;
+      }
+      
+      // Update progress bar
+      progressFill.style.width = progress + '%';
+      progressPercent.textContent = Math.round(progress) + '%';
+      
+      // Update messages
+      if (messageIndex < messages.length - 1 && progress > (messageIndex + 1) * 12) {
+        messageIndex++;
+        messageText.textContent = messages[messageIndex];
+      }
+      
+      // Update stages
+      if (currentStage < stages.length && progress > (currentStage + 1) * 25) {
+        stages[currentStage].classList.remove('active');
+        currentStage++;
+        if (currentStage < stages.length) {
+          stages[currentStage].classList.add('active');
+        }
+      }
+      
+      // Continue animation if not complete
+      if (progress < 100) {
+        setTimeout(updateProgress, 200 + Math.random() * 300);
+      }
+    }
+    
+    // Start the animation
+    setTimeout(updateProgress, 500);
+  });
+</script>
+{% endblock %}

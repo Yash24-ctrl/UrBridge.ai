@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Results · UrBridge.ai{% endblock %}
+{% block content %}
+  <div class="card glow main-upload-card">
+    <div class="card-header">
+      <div class="card-title">Resume Analysis Results</div>
+    </div>
+    <div class="card-body">
+      {% if prediction_text %}
+        <div class="result" aria-live="polite" style="margin-bottom: 20px;">
+          {{ prediction_text|replace('\n', '<br>')|safe }}
+        </div>
+      {% endif %}
+
+      {% if analytics %}
+        {% set analytics_data = analytics %}
+        {% include 'analytics_dashboard.html' %}
+      {% else %}
+        <div class="empty-history">
+          <div class="empty-icon">Results</div>
+          <h3>No Analytics Data Available</h3>
+          <p>Analytics data could not be generated for this analysis.</p>
+        </div>
+      {% endif %}
+
+      {% if suggestions %}
+        <div class="suggestions-section" style="margin-top: 20px;">
+          <h3 class="suggestions-title">Resume Improvement Suggestions</h3>
+          <div class="suggestions-list">
+            {% for suggestion in suggestions %}
+              <div class="suggestion-item suggestion-{{ suggestion.type }}">
+                <span class="suggestion-icon">
+                  {% if suggestion.type == 'critical' %}Critical
+                  {% elif suggestion.type == 'important' %}Important
+                  {% elif suggestion.type == 'moderate' %}Moderate
+                  {% else %}Info
+                  {% endif %}
+                </span>
+                <span class="suggestion-text">{{ suggestion.text }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="stack" style="margin-top: 30px; justify-content: center;">
+        <a href="{{ url_for('download_analysis') }}" class="btn btn-primary" style="margin-right: 10px;">Download Analysis</a>
+        <a href="{{ url_for('export_user_data_pdf') }}" class="btn btn-primary" style="margin-right: 10px;">Export as PDF</a>
+        <a href="{{ url_for('export_user_data_json') }}" class="btn btn-primary" style="margin-right: 10px;">Export as JSON</a>
+        <a href="{{ url_for('manual_input') }}" class="btn btn-primary">Home</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

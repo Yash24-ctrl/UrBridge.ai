@@ -1,0 +1,54 @@
+<!-- Results Section -->
+<div class="card glow main-upload-card">
+  <div class="card-header">
+    <div class="card-title">📊 Job Fit Analysis Results</div>
+  </div>
+  <div class="card-body">
+    <!-- Job Fit Score Display -->
+    <div class="result" aria-live="polite" style="margin-bottom: 20px;">
+      Predicted Job Fit Score: {{ fit_score_percentage }}/100
+    </div>
+
+    <!-- Matched Skills -->
+    {% if matched_skills %}
+    <div class="result" style="margin-bottom: 20px;">
+      <strong>✅ Matched Skills ({{ matched_skills|length }}):</strong><br>
+      {{ matched_skills|join(', ') }}
+    </div>
+    {% endif %}
+
+    <!-- Missing Skills -->
+    {% if missing_skills %}
+    <div class="result" style="margin-bottom: 20px;">
+      <strong>❌ Missing Skills ({{ missing_skills|length }}):</strong><br>
+      {{ missing_skills|join(', ') }}
+    </div>
+    {% endif %}
+
+
+    {% if suggestions %}
+      <div class="suggestions-section" style="margin-top: 20px;">
+        <h3 class="suggestions-title">💡 Job Fit Improvement Suggestions</h3>
+        <div class="suggestions-list">
+          {% for suggestion in suggestions %}
+            <div class="suggestion-item suggestion-{{ suggestion.type|default('moderate') }}">
+              <span class="suggestion-icon">
+                {% if suggestion.type == 'critical' %}🔴
+                {% elif suggestion.type == 'important' %}🟡
+                {% elif suggestion.type == 'moderate' %}🟢
+                {% else %}ℹ️
+                {% endif %}
+              </span>
+              <span class="suggestion-text">{{ suggestion.text|default(suggestion) }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="stack" style="margin-top: 30px; justify-content: center;">
+      <a href="{{ url_for('jobmatch') }}" class="btn btn-primary">Analyze Another Job</a>
+      <a href="{{ url_for('analyzer') }}" class="btn btn-ghost">Back to Analyzer</a>
+    </div>
+  </div>
+</div>

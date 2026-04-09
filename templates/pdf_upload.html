@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block title %}PDF Upload · UrBridge.ai{% endblock %}
+{% block content %}
+  <section class="hero">
+    <div class="card glow main-upload-card">
+      <div class="card-header">
+        <div class="card-title">📄 PDF Resume Analyzer</div>
+      </div>
+      <div class="card-body">
+        <p class="helper" style="margin-bottom: 20px;">
+          Upload your PDF resume to get an instant quality score and personalized improvement suggestions.
+          <br><strong>Tip:</strong> For best results, ensure your resume contains clear sections for Experience, Education, Skills, and Projects.
+        </p>
+        
+        <form method="post" enctype="multipart/form-data" class="row" id="pdfForm">
+          <div class="row">
+            <div class="field">
+              <label class="label" for="resume_pdf">Upload PDF Resume</label>
+              <input class="input" id="resume_pdf" name="resume_pdf" type="file" accept=".pdf" required>
+              <p class="helper" style="margin-top: 8px; font-size: 0.9em;">
+                Supported formats: PDF only (max 10MB)<br>
+                <strong>Note:</strong> Please ensure you're uploading a proper resume containing sections like Experience, Education, and Skills.
+              </p>
+            </div>
+          </div>
+          
+          <div class="stack">
+            <button class="btn btn-primary" type="submit">Analyze PDF Resume</button>
+            <a class="btn btn-ghost" href="{{ url_for('analyzer') }}">Back to Analyzer</a>
+            <a class="btn btn-ghost" href="{{ url_for('logout') }}">Logout</a>
+          </div>
+        </form>
+
+        {% if prediction_text %}
+          <div class="result {% if error %}result-error{% elif warning %}result-warning{% endif %}" aria-live="polite" style="margin-top: 20px;">
+            {{ prediction_text|replace('\n', '<br>')|safe }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Enhanced How It Works Section -->
+    <div class="card glow">
+      <div class="card-header">
+        <div class="card-title">How it works</div>
+      </div>
+      <div class="card-body">
+        <p class="helper">Upload your PDF resume. We process your document and predict a resume quality score on a 1–100 scale with personalized improvement suggestions.</p>
+        
+        <div class="how-it-works-content">
+          <div class="steps-grid">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-title">Upload PDF</div>
+              <div class="step-desc">Upload your resume in PDF format. Our system supports both text-based and scanned PDFs.</div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-title">AI Extraction</div>
+              <div class="step-desc">Advanced OCR and text extraction technologies parse your resume content, identifying key sections like Experience, Education, Skills, and Projects.</div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-title">Get Score</div>
+              <div class="step-desc">Receive a comprehensive quality score from 1-100 with detailed breakdown of strengths and areas for improvement.</div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-title">Improve</div>
+              <div class="step-desc">Follow personalized suggestions to enhance your resume quality, with specific recommendations for missing sections or skills.</div>
+            </div>
+          </div>
+          
+          <div class="tips-section" style="margin-top: 20px; padding: 15px; background: rgba(110, 231, 255, 0.1); border-radius: 8px; border: 1px solid rgba(110, 231, 255, 0.3);">
+            <h4 style="margin-top: 0; color: #6ee7ff;">Tips for Better Results:</h4>
+            <ul style="padding-left: 20px; margin-bottom: 0;">
+              <li>Use clear section headings (Experience, Education, Skills, Projects)</li>
+              <li>Include quantifiable achievements (e.g., "Increased sales by 25%")</li>
+              <li>List specific technologies and tools you're proficient in</li>
+              <li>Mention relevant certifications and training</li>
+              <li>Keep formatting consistent throughout the document</li>
+            </ul>
+          </div>
+          
+          <div class="kpi">
+            <div class="kpi-item"><div class="muted">OCR Support</div><div class="kpi-val">Multi-engine</div></div>
+            <div class="kpi-item"><div class="muted">Processing</div><div class="kpi-val">Instant</div></div>
+            <div class="kpi-item"><div class="muted">Formats</div><div class="kpi-val">PDF Only</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Resume Requirements Section -->
+    <div class="card glow">
+      <div class="card-header">
+        <div class="card-title">Resume Requirements</div>
+      </div>
+      <div class="card-body">
+        <p class="helper">To get accurate analysis, please ensure your resume contains the following sections:</p>
+        
+        <ul class="requirements-list">
+          <li>👤 Personal contact information (Name, Email, Phone)</li>
+          <li>🎓 Education details (Degrees, Institutions, Graduation dates)</li>
+          <li>💼 Work experience (Companies, Roles, Responsibilities, Duration, Achievements)</li>
+          <li>🛠️ Skills section (Technical skills, Software proficiency, Programming languages)</li>
+          <li>🏆 Certifications and Training (Professional certifications, Courses)</li>
+          <li>🚀 Projects (Personal or professional projects with brief descriptions)</li>
+          <li>🌍 Languages (Languages you speak and proficiency levels)</li>
+        </ul>
+        
+        <div class="note-box" style="margin-top: 15px; padding: 10px; background: rgba(255, 193, 7, 0.1); border: 1px solid #ffc107; border-radius: 6px;">
+          <strong>Note:</strong> Our enhanced parser can now extract up to 15 skills, 30 certifications, and 20 projects for more comprehensive analysis.
+        </div>
+        
+        <div class="warning-box">
+          <strong>Important:</strong> Documents that are not resumes (invoices, reports, general documents) will be rejected with an error message.
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    .requirements-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    
+    .requirements-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .requirements-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .requirements-list li:before {
+      content: "✓";
+      color: #6ee7b7;
+      font-weight: bold;
+      display: inline-block;
+      width: 20px;
+      margin-right: 10px;
+    }
+    
+    .warning-box {
+      background: rgba(255, 107, 107, 0.1);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+      color: #ff6b6b;
+    }
+  </style>
+{% endblock %}

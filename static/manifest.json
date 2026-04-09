@@ -1,0 +1,24 @@
+{
+  "name": "AI Resume Analyzer",
+  "short_name": "ResumeAnalyzer",
+  "description": "AI-powered resume analysis and job matching platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#6ee7ff",
+  "icons": [
+    {
+      "src": "/static/neuronet-white-logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/static/neuronet-white-logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "permissions": [
+    "notifications"
+  ]
+}

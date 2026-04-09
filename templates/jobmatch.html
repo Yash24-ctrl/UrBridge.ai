@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% block title %}Job Role Matching · UrBridge.ai{% endblock %}
+{% block content %}
+  <section class="hero jobmatch-layout">
+    <div class="card glow jobmatch-card" id="jobmatchCard">
+      <div class="card-header">
+        <div class="card-title">🎯 Job Role Matching</div>
+      </div>
+      <div class="card-body">
+        <p class="helper" style="margin-bottom: 20px;">
+          Enter your resume details and paste a job description to see how well your resume matches the role.
+        </p>
+
+        <form method="post" action="{{ url_for('jobmatch') }}" class="jobmatch-form" id="jobMatchForm">
+          <!-- Resume Input Section -->
+          <div class="jobmatch-section">
+            <h4 class="section-title">📄 Resume Details</h4>
+            
+            <div class="row two">
+              <div class="field">
+                <label class="label" for="years_of_experience_jm">Years of Experience</label>
+                <input class="input" id="years_of_experience_jm" name="years_of_experience" step="0.1" min="0" placeholder="e.g. 3.5">
+              </div>
+              <div class="field">
+                <label class="label" for="skills_jm">Skills <span style="color: var(--primary);">*</span></label>
+                <input class="input" id="skills_jm" name="skills" type="text" placeholder="e.g. Python, Java, SQL, React, AWS" required>
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label class="label" for="education_level_jm">Education</label>
+                <select class="input" id="education_level_jm" name="education_level">
+                  <option value="">Select Education Level</option>
+                  <option value="Diploma">Diploma</option>
+                  <option value="Bachelors">Bachelors</option>
+                  <option value="Masters">Masters</option>
+                  <option value="Post Graduate">Post Graduate</option>
+                  <option value="custom">Other</option>
+                </select>
+                <input class="input" id="custom_education_level_jm" name="custom_education_level" type="text" placeholder="Enter your education level" style="display: none; margin-top: 10px;">
+              </div>
+              <div class="field">
+                <label class="label" for="desired_job_role_jm">Desired Job Role</label>
+                <input class="input" id="desired_job_role_jm" name="desired_job_role" type="text" placeholder="e.g. Data Scientist">
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label class="label" for="certifications_jm">Full name of the certificates you have</label>
+                <input class="input" id="certifications_jm" name="certifications" min="0" step="1" placeholder="e.g. AWS Certified Solutions Architect, Google Analytics Certification">
+              </div>
+              <div class="field">
+                <label class="label" for="projects_completed_jm">Final Year Project Description</label>
+                <textarea class="input textarea" id="projects_completed_jm" name="projects_completed" rows="3" placeholder="Describe your final year project (technologies used, challenges, outcomes)"></textarea>
+              </div>
+            </div>
+            
+            <div class="row two">
+              <div class="field">
+                <label class="label" for="notice_period_days_IT_jm">Notice Period</label>
+                <select class="input" id="notice_period_days_IT_jm" name="notice_period_days_IT">
+                  <option value="">Select Notice Period</option>
+                  <option value="0">Immediate</option>
+                  <option value="10-15">10 - 15 days</option>
+                  <option value="30">30 days</option>
+                  <option value="custom">Custom</option>
+                </select>
+                <input class="input" id="custom_notice_period_jm" name="custom_notice_period" type="text" placeholder="Enter custom notice period" style="display: none; margin-top: 10px;">
+              </div>
+              <div class="field">
+                <!-- Empty field to maintain grid structure -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Description Section -->
+          <div class="jobmatch-section">
+            <h4 class="section-title">📋 Job Description</h4>
+            <div class="field">
+              <label class="label" for="job_description">Paste Job Description Here</label>
+              <textarea class="textarea" id="job_description" name="job_description" rows="8" 
+                        placeholder="Paste the complete job description, requirements, and qualifications here..." required>{{ job_description if job_description else '' }}</textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit" style="width: 100%; margin-top: 16px;" id="analyzeButton">
+            🔍 Analyze Job Fit
+          </button>
+        </form>
+
+        {% if error %}
+          <div class="result result-error" style="margin-top: 20px;">
+            {{ error }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="results-section">
+      {% if fit_score is defined %}
+        {% include 'jobmatch_results.html' %}
+      {% endif %}
+    </div>
+
+    <!-- Info Card -->
+    <div class="card glow info-card" id="infoCard">
+      <div class="card-header">
+        <div class="card-title">ℹ️ How It Works</div>
+      </div>
+      <div class="card-body">
+        <p class="helper">
+          The Job Fit Score is calculated using advanced AI embeddings to compare your resume with the job description. 
+          The system identifies matched and missing skills to help you tailor your resume for better job applications.
+        </p>
+        <div class="kpi">
+          <div class="kpi-item"><div class="muted">Method</div><div class="kpi-val">AI Embeddings</div></div>
+          <div class="kpi-item"><div class="muted">Accuracy</div><div class="kpi-val">High</div></div>
+          <div class="kpi-item"><div class="muted">Speed</div><div class="kpi-val">Fast</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('jobMatchForm');
+    const analyzeButton = document.getElementById('analyzeButton');
+    const resultsSection = document.getElementById('resultsSection');
+    const jobmatchCard = document.getElementById('jobmatchCard');
+    const infoCard = document.getElementById('infoCard');
+    const layoutContainer = document.querySelector('.jobmatch-layout');
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent default form submission
+      
+      // Show loading overlay
+      showLoading('Analyzing job match...');
+      
+      // Change button text and disable it
+      analyzeButton.innerHTML = '🔍 Analyzing...';
+      analyzeButton.disabled = true;
+      
+      // Collect form data
+      const formData = new FormData(form);
+      
+      // Send AJAX request
+      fetch('{{ url_for("jobmatch") }}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Hide loading overlay
+        hideLoading();
+        
+        if (data.success) {
+          // Update results section with new content
+          resultsSection.innerHTML = data.html;
+          
+          // Add classes to reposition elements after analysis
+          layoutContainer.classList.add('analyzed');
+          jobmatchCard.classList.add('slided-left');
+          infoCard.classList.add('hidden');
+          
+          // Force a reflow to ensure proper sizing
+          setTimeout(() => {
+            layoutContainer.style.height = 'auto';
+          }, 100);
+        } else {
+          // Show error message
+          resultsSection.innerHTML = '<div class="result result-error" style="margin-top: 20px;">Error: ' + data.error + '</div>';
+        }
+        
+        // Re-enable button
+        analyzeButton.innerHTML = '🔍 Analyze Job Fit';
+        analyzeButton.disabled = false;
+        
+        // Scroll to results
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+      })
+      .catch(error => {
+        // Hide loading overlay
+        hideLoading();
+        
+        // Show error message
+        resultsSection.innerHTML = '<div class="result result-error" style="margin-top: 20px;">Error processing job match: ' + error + '</div>';
+        
+        // Re-enable button
+        analyzeButton.innerHTML = '🔍 Analyze Job Fit';
+        analyzeButton.disabled = false;
+      });
+    });
+  });
+</script>
+{% endblock %}

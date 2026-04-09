@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>UrBridge.ai - Smart Resume Evaluation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🤖</text></svg>">
+    <style>
+        /* Animated Introduction Specific Styles */
+        .intro-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(1200px 800px at 80% -10%, rgba(74, 144, 226, 0.1), transparent),
+                        radial-gradient(1000px 700px at -10% 110%, rgba(91, 163, 245, 0.08), transparent),
+                        #001f3f;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Holographic grid background */
+        .holographic-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(110, 231, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(110, 231, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 0;
+            animation: gridShift 20s linear infinite;
+        }
+        
+        @keyframes gridShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 30px; }
+        }
+        
+        /* Particle system */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(110, 231, 255, 0.6);
+            box-shadow: 0 0 10px rgba(110, 231, 255, 0.8);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .intro-container::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .intro-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            width: 100%;
+            animation: contentFloat 6s ease-in-out infinite;
+        }
+        
+        @keyframes contentFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo-animation {
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: logoAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+        }
+        
+        .logo-animation img {
+            height: 120px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(110, 231, 255, 0.7));
+            animation: logoPulse 4s ease-in-out infinite;
+            filter: hue-rotate(0deg) drop-shadow(0 0 20px rgba(110, 231, 255, 0.7));
+        }
+        
+        @keyframes logoPulse {
+            0% {
+                transform: scale(1);
+                filter: hue-rotate(0deg) drop-shadow(0 0 15px rgba(110, 231, 255, 0.7));
+            }
+            25% {
+                filter: hue-rotate(90deg) drop-shadow(0 0 25px rgba(167, 139, 250, 0.9));
+            }
+            50% {
+                transform: scale(1.03);
+                filter: hue-rotate(180deg) drop-shadow(0 0 25px rgba(167, 139, 250, 0.9));
+            }
+            75% {
+                filter: hue-rotate(270deg) drop-shadow(0 0 20px rgba(110, 231, 255, 0.8));
+            }
+            100% {
+                transform: scale(1);
+                filter: hue-rotate(360deg) drop-shadow(0 0 15px rgba(110, 231, 255, 0.7));
+            }
+        }
+        
+        .title-animation {
+            font-family: 'Outfit', 'Poppins', sans-serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #6ee7ff, #a78bfa, #6ee7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: titleGlow 3s linear infinite, textAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
+            opacity: 0;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 15px rgba(110, 231, 255, 0.3);
+        }
+        
+        .subtitle-animation {
+            font-size: clamp(18px, 2vw, 22px);
+            color: #b0c4de;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: textAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .features-animation {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: featuresAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s forwards;
+        }
+        
+        .feature-item {
+            background: rgba(255, 255, 255, 0.08); /* Increased opacity for better visibility */
+            border: 1px solid rgba(110, 231, 255, 0.3); /* More visible border */
+            border-radius: 16px;
+            padding: 20px 25px;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(20px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: featureFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes featureFloat {
+            0%, 100% { transform: translateY(20px); }
+            50% { transform: translateY(15px); }
+        }
+        
+        /* Holographic effect for feature items */
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(110, 231, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+            border-color: rgba(110, 231, 255, 0.5); /* Brighter border on hover */
+            background: rgba(255, 255, 255, 0.12); /* Lighter background on hover */
+        }
+        
+        .feature-item:nth-child(1) { animation: featureItemAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s forwards; }
+        .feature-item:nth-child(2) { animation: featureItemAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.7s forwards; }
+        .feature-item:nth-child(3) { animation: featureItemAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.9s forwards; }
+        
+        .section {
+            margin: 70px 0;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .section.appear {
+            animation: sectionAppear 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        .section-title {
+            font-size: clamp(28px, 3vw, 36px);
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #6ee7ff;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 15px rgba(110, 231, 255, 0.7); /* Add glow for better visibility */
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #6ee7ff, #a78bfa);
+            border-radius: 2px;
+            animation: titleUnderline 2s ease-in-out infinite;
+        }
+        
+        @keyframes titleUnderline {
+            0%, 100% { transform: translateX(-50%) scaleX(1); }
+            50% { transform: translateX(-50%) scaleX(1.2); }
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.08); /* Increased opacity for better visibility */
+            border: 1px solid rgba(110, 231, 255, 0.3); /* More visible border */
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            text-align: left;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+            position: relative;
+            overflow: hidden;
+            animation: servicePulse 5s ease-in-out infinite;
+        }
+        
+        @keyframes servicePulse {
+            0%, 100% { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+            50% { box-shadow: 0 15px 30px rgba(110, 231, 255, 0.2); }
+        }
+        
+        /* Holographic border effect */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(110, 231, 255, 0.2), 
+                rgba(167, 139, 250, 0.2), 
+                rgba(110, 231, 255, 0.2));
+            z-index: -1;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.35); /* Enhanced shadow on hover */
+            border-color: rgba(110, 231, 255, 0.6); /* Brighter border on hover */
+            background: rgba(255, 255, 255, 0.12); /* Lighter background on hover */
+        }
+        
+        .service-icon {
+            font-size: 60px;
+            margin-bottom: 25px;
+            color: #ffffff;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .service-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(110, 231, 255, 0.5); /* Add glow for better visibility */
+        }
+        
+        .service-description {
+            color: #e6f0ff; /* Lighter color for better contrast */
+            line-height: 1.7;
+            font-size: 16px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Subtle shadow for better readability */
+        }
+        
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 35px;
+            margin-top: 50px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 280px;
+            max-width: 320px;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 0, 0, 0.08); /* Increased opacity for better visibility */
+            border: 1px solid rgba(110, 231, 255, 0.3); /* More visible border */
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Neon border effect for steps */
+        .step::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #6ee7ff, #a78bfa, #6ee7ff);
+            z-index: -1;
+            border-radius: 22px;
+            animation: borderAnimation 3s linear infinite;
+            background-size: 400%;
+        }
+        
+        @keyframes borderAnimation {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+            border-color: rgba(110, 231, 255, 0.5); /* Brighter border on hover */
+            background: rgba(255, 255, 255, 0.12); /* Lighter background on hover */
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6ee7ff, #a78bfa);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 15px rgba(110, 231, 255, 0.3);
+            animation: stepPulse 2s ease-in-out infinite;
+            color: #001f3f; /* Dark text for better contrast */
+        }
+        
+        @keyframes stepPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 5px 15px rgba(110, 231, 255, 0.3); }
+            50% { transform: scale(1.1); box-shadow: 0 8px 20px rgba(167, 139, 250, 0.5); }
+        }
+        
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(110, 231, 255, 0.5); /* Add glow for better visibility */
+        }
+        
+        .step-description {
+            color: #e6f0ff; /* Lighter color for better contrast */
+            line-height: 1.7;
+            font-size: 16px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Subtle shadow for better readability */
+        }
+        
+        .reviews-section {
+            margin: 90px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .reviews-container {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .reviews-grid {
+            display: flex;
+            gap: 35px;
+            animation: scrollReviews 15s linear infinite; /* Increased speed */
+        }
+        
+        .reviews-grid:hover {
+            animation-play-state: paused;
+        }
+        
+        /* Make sure all reviews are visible on mobile */
+        @media (max-width: 768px) {
+            .reviews-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                animation: none; /* Disable animation on mobile */
+                gap: 20px;
+                padding: 10px 0;
+                scrollbar-width: none; /* Hide scrollbar for Firefox */
+            }
+            
+            .reviews-grid::-webkit-scrollbar {
+                display: none; /* Hide scrollbar for Chrome/Safari */
+            }
+            
+            .review-card {
+                width: 280px;
+                padding: 25px;
+                flex-shrink: 0;
+                margin-right: 20px;
+            }
+            
+            /* Even smaller for very small screens */
+            @media (max-width: 480px) {
+                .review-card {
+                    width: 260px;
+                    padding: 20px;
+                }
+            }
+        }
+        
+        .review-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(10px);
+            text-align: left;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+            width: 350px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Holographic shimmer effect for review cards */
+        .review-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent);
+            transition: left 0.5s;
+        }
+        
+        .review-card:hover::before {
+            left: 100%;
+        }
+        
+        .review-card:nth-child(1) { animation-delay: 0.3s; }
+        .review-card:nth-child(2) { animation-delay: 0.3s; }
+        .review-card:nth-child(3) { animation-delay: 0.3s; }
+        .review-card:nth-child(4) { animation-delay: 0.3s; }
+        .review-card:nth-child(5) { animation-delay: 0.3s; }
+        .review-card:nth-child(6) { animation-delay: 0.3s; }
+        .review-card:nth-child(7) { animation-delay: 0.3s; }
+        .review-card:nth-child(8) { animation-delay: 0.3s; }
+        .review-card:nth-child(9) { animation-delay: 0.3s; }
+        .review-card:nth-child(10) { animation-delay: 0.3s; }
+        .review-card:nth-child(11) { animation-delay: 0.3s; }
+        .review-card:nth-child(12) { animation-delay: 0.3s; }
+        
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+            border-color: rgba(110, 231, 255, 0.3);
+        }
+        
+        .review-content {
+            font-style: italic;
+            color: #e6f0ff;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6ee7ff, #a78bfa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 22px;
+            color: #001f3f;
+            animation: avatarPulse 2s ease-in-out infinite;
+        }
+        
+        .author-info {
+            text-align: left;
+        }
+        
+        .author-name {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 18px;
+        }
+        
+        .author-role {
+            font-size: 15px;
+            color: #b0c4de;
+        }
+        
+        .stats-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px;
+            margin: 70px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Holographic effect for stats */
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(110, 231, 255, 0.1), 
+                transparent, 
+                rgba(167, 139, 250, 0.1));
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .stat-item:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .stat-number {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            background: linear-gradient(90deg, #6ee7ff, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            animation: numberGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes numberGlow {
+            0%, 100% { text-shadow: 0 0 5px rgba(110, 231, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(167, 139, 250, 0.8); }
+        }
+        
+        .stat-label {
+            color: #b0c4de;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .buttons-animation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            opacity: 0;
+            animation: buttonsAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s forwards;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            font-size: 17px;
+            min-width: 200px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Holographic button effect */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1), 
+                rgba(255, 255, 255, 0.3), 
+                rgba(255, 255, 255, 0.1));
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .btn:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(180deg, rgba(110,231,255,0.25), rgba(110,231,255,0.1));
+            border-color: rgba(110, 231, 255, 0.4);
+            color: #6ee7ff;
+            box-shadow: 0 5px 15px rgba(110, 231, 255, 0.2);
+            animation: btnGlow 3s ease-in-out infinite;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(180deg, rgba(167,139,250,0.25), rgba(167,139,250,0.1));
+            border-color: rgba(167, 139, 250, 0.4);
+            color: #a78bfa;
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.2);
+            animation: btnGlow 3s ease-in-out infinite 1.5s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes btnGlow {
+            0%, 100% { box-shadow: 0 5px 15px rgba(110, 231, 255, 0.2); }
+            50% { box-shadow: 0 5px 25px rgba(167, 139, 250, 0.4); }
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: #b0c4de;
+            text-decoration: none;
+            font-size: 15px;
+            opacity: 0;
+            animation: skipAppear 1s ease-out 2.5s forwards;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .skip-link:hover {
+            color: #6ee7ff;
+            background: rgba(110, 231, 255, 0.1);
+            border-color: rgba(110, 231, 255, 0.3);
+        }
+        
+        /* Enhanced Animations */
+        @keyframes logoAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) translateY(-30px) rotate(-5deg);
+            }
+            70% {
+                transform: scale(1.05) translateY(5px) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotate(0deg);
+            }
+        }
+        
+        @keyframes logoPulse {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(110, 231, 255, 0.7));
+            }
+            50% {
+                transform: scale(1.03);
+                filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.9));
+            }
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(110, 231, 255, 0.7));
+            }
+        }
+        
+        @keyframes titleGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        
+        @keyframes textAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes featuresAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes featureItemAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            70% {
+                transform: translateY(-5px) scale(1.03);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes sectionAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes buttonsAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes skipAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Floating elements with enhanced animation */
+        .floating-element {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0.6;
+            z-index: 0;
+            animation-duration: 20s;
+            animation-iteration-count: infinite;
+            animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.95);
+        }
+        
+        .element-1 {
+            top: 12%;
+            left: 7%;
+            animation-name: float1;
+        }
+        
+        .element-2 {
+            top: 22%;
+            right: 12%;
+            animation-name: float2;
+        }
+        
+        .element-3 {
+            bottom: 18%;
+            left: 18%;
+            animation-name: float3;
+        }
+        
+        .element-4 {
+            bottom: 28%;
+            right: 22%;
+            animation-name: float4;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(25px, -35px) rotate(12deg) scale(1.1); }
+            50% { transform: translate(45px, -15px) rotate(0deg) scale(1); }
+            75% { transform: translate(25px, 25px) rotate(-12deg) scale(0.95); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(-35px, 25px) rotate(-18deg) scale(1.1); }
+            50% { transform: translate(-15px, 45px) rotate(0deg) scale(1); }
+            75% { transform: translate(25px, 25px) rotate(18deg) scale(0.95); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(20px, -30px) rotate(15deg) scale(1.1); }
+            50% { transform: translate(40px, -8px) rotate(0deg) scale(1); }
+            75% { transform: translate(20px, 20px) rotate(-15deg) scale(0.95); }
+        }
+        
+        @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate(-30px, 20px) rotate(-20deg) scale(1.1); }
+            50% { transform: translate(-8px, 40px) rotate(0deg) scale(1); }
+            75% { transform: translate(20px, 20px) rotate(20deg) scale(0.95); }
+        }
+        
+        /* Responsive */
+        @media (min-width: 1201px) {
+            .reviews-grid {
+                animation-duration: 17s; /* Increased speed */
+            }
+        }
+        
+        @media (max-width: 1200px) and (min-width: 1025px) {
+            .reviews-grid {
+                animation-duration: 12s; /* Increased speed */
+            }
+        }
+        
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .reviews-grid {
+                animation-duration: 9s; /* Increased speed for tablets */
+            }
+            
+            .review-card {
+                width: 300px; /* Slightly smaller review cards for tablets */
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .reviews-grid {
+                animation-duration: 6s; /* Increased speed for mobile */
+                gap: 20px; /* Reduce gap on mobile */
+            }
+            
+            .review-card {
+                width: 280px; /* Smaller review cards for mobile */
+                padding: 25px; /* Reduced padding */
+                margin-right: 20px; /* Add margin for better spacing */
+            }
+            
+            /* Even faster animation for smaller screens */
+            @media (max-width: 480px) {
+                .reviews-grid {
+                    animation-duration: 5s; /* Increased speed */
+                }
+                
+                .review-card {
+                    width: 260px;
+                    padding: 20px;
+                }
+            }
+            
+            .features-animation {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature-item {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .buttons-animation {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .process-steps, .services-grid, .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .step, .service-card, .review-card {
+                max-width: 100%;
+            }
+            
+            .stats-section {
+                gap: 30px;
+            }
+        }
+        
+        /* New animation keyframes */
+        @keyframes scrollReviews {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes avatarPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(110, 231, 255, 0.4);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(110, 231, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(110, 231, 255, 0);
+            }
+        }
+        
+        /* Duplicate reviews for seamless scrolling */
+        .reviews-grid::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-container">
+        <!-- Holographic grid background -->
+        <div class="holographic-grid"></div>
+        
+        <!-- Particle system -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Floating background elements -->
+        <div class="floating-element element-1">🤖</div>
+        <div class="floating-element element-2">📊</div>
+        <div class="floating-element element-3">📈</div>
+        <div class="floating-element element-4">🎯</div>
+        
+        <div class="intro-content">
+            <div class="logo-animation">
+                <a href="{{ url_for('intro') }}">
+                    <img src="{{ url_for('static', filename='neuronet-white-logo.jpg') }}" alt="UrBridge.ai" class="brand-logo">
+                </a>
+            </div>
+            
+            <h1 class="title-animation">UrBridge.ai</h1>
+            
+            <p class="subtitle-animation">we bridge you to your opportunities</p>
+            
+            <p class="subtitle-animation">Transform your resume into your ultimate career advantage with cutting-edge AI-powered insights and professional analysis</p>
+            
+            <div class="features-animation">
+                <div class="feature-item">
+                    <strong>🎯 Smart Scoring</strong>
+                    <div style="color: #e6f0ff; text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);">Get precise resume quality metrics with industry benchmarks</div>
+                </div>
+                <div class="feature-item">
+                    <strong>✨ AI Suggestions</strong>
+                    <div style="color: #e6f0ff; text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);">Receive actionable improvement recommendations</div>
+                </div>
+                <div class="feature-item">
+                    <strong>💼 Job Matching</strong>
+                    <div style="color: #e6f0ff; text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);">Match with your dream positions using AI algorithms</div>
+                </div>
+            </div>
+            
+            <!-- What We Serve Section -->
+            <div class="section" id="services">
+                <h2 class="section-title">What We Serve</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">📄</div>
+                        <h3 class="service-title">Resume Analysis</h3>
+                        <p class="service-description">Get a comprehensive analysis of your resume with detailed scoring based on industry standards and ATS compatibility.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🧠</div>
+                        <h3 class="service-title">AI-Powered Suggestions</h3>
+                        <p class="service-description">Receive personalized recommendations to improve your resume, including skill suggestions and experience enhancements.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔍</div>
+                        <h3 class="service-title">Job Matching</h3>
+                        <p class="service-description">Match your resume with job descriptions to see how well you align with specific positions and identify gaps.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How We Do It Section -->
+            <div class="section" id="process">
+                <h2 class="section-title">How We Do It</h2>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title" style="color: #000000;">Resume Parsing</h3>
+                        <p class="step-description" style="color: #000000;">Advanced NLP extracts key information from your resume including skills, experience, and education.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title" style="color: #000000;">Intelligent Analysis</h3>
+                        <p class="step-description" style="color: #000000;">Our AI evaluates your resume against industry benchmarks and job market requirements.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title" style="color: #000000;">Actionable Insights</h3>
+                        <p class="step-description" style="color: #000000;">Receive personalized recommendations to boost your resume's impact and interview chances.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistics Section -->
+            <div class="section" id="stats">
+                <div class="stats-section">
+                    <div class="stat-item">
+                        <div class="stat-number">50k+</div>
+                        <div class="stat-label">Resumes Analyzed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">User Satisfaction</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3x</div>
+                        <div class="stat-label">Interview Increase</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reviews Section -->
+            <div class="section reviews-section" id="reviews">
+                <h2 class="section-title">What Our Users Say</h2>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <p class="review-content">"This tool helped me identify critical gaps in my resume that I never noticed. Within two weeks of applying the suggestions, I had three interview calls!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">YK</div>
+                            <div class="author-info">
+                                <div class="author-name">Yash Kansara</div>
+                                <div class="author-role">Software Engineer</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p class="review-content">"The job matching feature is incredible. It showed me exactly what keywords I was missing and how to tailor my resume for specific positions."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">MC</div>
+                            <div class="author-info">
+                                <div class="author-name">Meet Chelani</div>
+                                <div class="author-role">Product Manager</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p class="review-content">"I've used several resume tools, but this one stands out with its detailed scoring system and practical suggestions. Worth every penny!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">RS</div>
+                            <div class="author-info">
+                                <div class="author-name">Ravi Shah</div>
+                                <div class="author-role">Data Scientist</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p class="review-content">"As a recent graduate, this platform gave me the confidence to apply for positions I previously thought were out of reach. The AI suggestions are spot on!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">NP</div>
+                            <div class="author-info">
+                                <div class="author-name">Nity Patel</div>
+                                <div class="author-role">UX Designer</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p class="review-content">"The resume quality score accurately reflected how recruiters viewed my application. After implementing the suggestions, my callback rate tripled!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">SN</div>
+                            <div class="author-info">
+                                <div class="author-name">Shivam Nayar</div>
+                                <div class="author-role">Marketing Manager</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p class="review-content">"Finally, a tool that goes beyond generic advice. The personalized recommendations helped me land a role at my dream company!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">KP</div>
+                            <div class="author-info">
+                                <div class="author-name">Keya Patel</div>
+                                <div class="author-role">Financial Analyst</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons-animation">
+                <a href="{{ url_for('how_it_works') }}" class="btn btn-primary">How It Works</a>
+                <a href="{{ url_for('guest_analyzer') }}" class="btn btn-secondary">Try Guest Analyzer</a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">Login to Your Account</a>
+                <a href="{{ url_for('register') }}" class="btn btn-secondary">Create New Account</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Animate sections as they come into view with enhanced timing
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create particles
+            createParticles();
+            
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add delay for sequential animation
+                        const index = Array.from(sections).indexOf(entry.target);
+                        setTimeout(() => {
+                            entry.target.classList.add('appear');
+                        }, index * 200);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Add auto-scrolling for reviews on mobile
+            const reviewsGrid = document.querySelector('.reviews-grid');
+            if (reviewsGrid) {
+                // Check if we're on mobile
+                const isMobile = window.matchMedia('(max-width: 768px)').matches;
+                
+                if (isMobile) {
+                    // Disable CSS animation and implement JS scrolling
+                    reviewsGrid.style.animation = 'none';
+                    
+                    // Auto-scroll functionality for mobile
+                    let scrollPosition = 0;
+                    const scrollSpeed = 1; // Adjust speed as needed
+                    
+                    function autoScroll() {
+                        if (reviewsGrid.scrollWidth > reviewsGrid.clientWidth) {
+                            scrollPosition += scrollSpeed;
+                            
+                            // Reset scroll position when we've scrolled past all reviews
+                            if (scrollPosition >= reviewsGrid.scrollWidth - reviewsGrid.clientWidth) {
+                                scrollPosition = 0;
+                            }
+                            
+                            reviewsGrid.scrollLeft = scrollPosition;
+                        }
+                    }
+                    
+                    // Start auto-scrolling
+                    setInterval(autoScroll, 30);
+                }
+            }
+        });
+        
+        // Create floating particles for futuristic effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay and duration
+                const delay = Math.random() * 15;
+                const duration = 15 + Math.random() * 10;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random color variation
+                const hue = 190 + Math.random() * 40; // Blue to purple range
+                particle.style.background = `hsla(${hue}, 100%, 70%, ${0.3 + Math.random() * 0.4})`;
+                particle.style.boxShadow = `0 0 ${10 + size * 2}px hsla(${hue}, 100%, 70%, 0.6)`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+    </script>
+</body>
+</html>

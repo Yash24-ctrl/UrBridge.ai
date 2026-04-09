@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>How It Works - bridge.ai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🤖</text></svg>">
+    <style>
+        /* How It Works Page Specific Styles */
+        .how-it-works-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(1200px 800px at 80% -10%, rgba(74, 144, 226, 0.1), transparent),
+                        radial-gradient(1000px 700px at -10% 110%, rgba(91, 163, 245, 0.08), transparent),
+                        #001f3f;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Holographic grid background */
+        .holographic-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(110, 231, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(110, 231, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 0;
+            animation: gridShift 20s linear infinite;
+        }
+        
+        @keyframes gridShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 30px; }
+        }
+        
+        /* Particle system */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(110, 231, 255, 0.6);
+            box-shadow: 0 0 10px rgba(110, 231, 255, 0.8);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .how-it-works-container::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            width: 100%;
+            animation: contentFloat 6s ease-in-out infinite;
+        }
+        
+        @keyframes contentFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo-section {
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: logoAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+        }
+        
+        .logo-section img {
+            height: 100px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(110, 231, 255, 0.7));
+            animation: logoPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes logoPulse {
+            0% {
+                transform: scale(1);
+                filter: hue-rotate(0deg) drop-shadow(0 0 15px rgba(110, 231, 255, 0.7));
+            }
+            25% {
+                filter: hue-rotate(90deg) drop-shadow(0 0 25px rgba(167, 139, 250, 0.9));
+            }
+            50% {
+                transform: scale(1.03);
+                filter: hue-rotate(180deg) drop-shadow(0 0 25px rgba(167, 139, 250, 0.9));
+            }
+            75% {
+                filter: hue-rotate(270deg) drop-shadow(0 0 20px rgba(110, 231, 255, 0.8));
+            }
+            100% {
+                transform: scale(1);
+                filter: hue-rotate(360deg) drop-shadow(0 0 15px rgba(110, 231, 255, 0.7));
+            }
+        }
+        
+        .main-title {
+            font-family: 'Outfit', 'Poppins', sans-serif;
+            font-size: clamp(36px, 6vw, 60px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #6ee7ff, #a78bfa, #6ee7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: titleGlow 3s linear infinite, textAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
+            opacity: 0;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 15px rgba(110, 231, 255, 0.3);
+        }
+        
+        .subtitle {
+            font-size: clamp(20px, 2.5vw, 26px);
+            color: #b0c4de;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: textAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .workflow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin: 80px 0;
+            opacity: 0;
+            animation: featuresAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s forwards;
+        }
+        
+        .step-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 35px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .step-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(110, 231, 255, 0.14), rgba(167, 139, 250, 0.08), transparent 70%);
+            opacity: 0.75;
+            pointer-events: none;
+            animation: glassGlow 6s ease-in-out infinite;
+        }
+
+        .step-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -35%;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+            transform: skewX(-22deg);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+        
+        .step-container:nth-child(1) { animation: stepSlideIn 0.8s ease-out 1.5s forwards; }
+        .step-container:nth-child(2) { animation: stepSlideIn 0.8s ease-out 1.7s forwards; }
+        .step-container:nth-child(3) { animation: stepSlideIn 0.8s ease-out 1.9s forwards; }
+        .step-container:nth-child(4) { animation: stepSlideIn 0.8s ease-out 2.1s forwards; }
+        .step-container:nth-child(5) { animation: stepSlideIn 0.8s ease-out 2.3s forwards; }
+        
+        @keyframes stepSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .step-container:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.24);
+            border-color: rgba(110, 231, 255, 0.35);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.07));
+        }
+
+        .step-container:hover::after {
+            opacity: 1;
+            animation: glassSweep 1.2s ease;
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(110, 231, 255, 0.9), rgba(167, 139, 250, 0.85));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            flex-shrink: 0;
+            box-shadow: 0 10px 24px rgba(110, 231, 255, 0.24);
+            animation: iconFloat 4s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(0deg); }
+            75% { transform: translateY(-5px) rotate(-5deg); }
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #001f3f;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+            animation: numberPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .step-content {
+            text-align: left;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(110, 231, 255, 0.5);
+        }
+        
+        .step-description {
+            color: #e6f0ff;
+            line-height: 1.7;
+            font-size: 16px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes glassSweep {
+            0% { left: -35%; }
+            100% { left: 120%; }
+        }
+
+        @keyframes glassGlow {
+            0%, 100% { opacity: 0.58; }
+            50% { opacity: 0.82; }
+        }
+        
+        .technology-stack {
+            margin: 80px 0;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            border: 1px solid rgba(110, 231, 255, 0.2);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: sectionAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 2.5s forwards;
+        }
+        
+        .tech-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #6ee7ff;
+            text-shadow: 0 0 15px rgba(110, 231, 255, 0.7);
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .tech-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(110, 231, 255, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: techItemAppear 0.6s ease-out forwards;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(110, 231, 255, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .tech-item:nth-child(1) { animation-delay: 2.8s; }
+        .tech-item:nth-child(2) { animation-delay: 3.0s; }
+        .tech-item:nth-child(3) { animation-delay: 3.2s; }
+        .tech-item:nth-child(4) { animation-delay: 3.4s; }
+        .tech-item:nth-child(5) { animation-delay: 3.6s; }
+        .tech-item:nth-child(6) { animation-delay: 3.8s; }
+        
+        @keyframes techItemAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tech-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .tech-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        
+        .tech-desc {
+            color: #b0c4de;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            margin-top: 60px;
+            opacity: 0;
+            animation: buttonsAppear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 4.0s forwards;
+        }
+        
+        .btn {
+            padding: 18px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            font-size: 18px;
+            min-width: 220px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(180deg, rgba(110,231,255,0.25), rgba(110,231,255,0.1));
+            border-color: rgba(110, 231, 255, 0.4);
+            color: #6ee7ff;
+            box-shadow: 0 5px 15px rgba(110, 231, 255, 0.2);
+            animation: btnGlow 3s ease-in-out infinite;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(180deg, rgba(167,139,250,0.25), rgba(167,139,250,0.1));
+            border-color: rgba(167, 139, 250, 0.4);
+            color: #a78bfa;
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.2);
+            animation: btnGlow 3s ease-in-out infinite 1.5s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes btnGlow {
+            0%, 100% { box-shadow: 0 5px 15px rgba(110, 231, 255, 0.2); }
+            50% { box-shadow: 0 5px 25px rgba(167, 139, 250, 0.4); }
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            color: #b0c4de;
+            text-decoration: none;
+            font-size: 16px;
+            opacity: 0;
+            animation: skipAppear 1s ease-out 4.2s forwards;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-link:hover {
+            color: #6ee7ff;
+            background: rgba(110, 231, 255, 0.1);
+            border-color: rgba(110, 231, 255, 0.3);
+        }
+        
+        /* Enhanced Animations */
+        @keyframes logoAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) translateY(-30px) rotate(-5deg);
+            }
+            70% {
+                transform: scale(1.05) translateY(5px) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotate(0deg);
+            }
+        }
+        
+        @keyframes titleGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        
+        @keyframes textAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes featuresAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes sectionAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes buttonsAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes skipAppear {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .step-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            
+            .step-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 30px;
+            }
+            
+            .step-number {
+                top: -10px;
+                left: -10px;
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .step-title {
+                font-size: 24px;
+            }
+            
+            .step-description {
+                font-size: 16px;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .step-container {
+                padding: 25px 15px;
+            }
+            
+            .step-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 26px;
+            }
+            
+            .step-title {
+                font-size: 20px;
+            }
+            
+            .step-description {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="how-it-works-container">
+        <!-- Holographic grid background -->
+        <div class="holographic-grid"></div>
+        
+        <!-- Particle system -->
+        <div class="particles" id="particles"></div>
+        
+        <div class="content-wrapper">
+            <a href="{{ url_for('intro') }}" class="back-link">
+                <span>←</span> Back to Home
+            </a>
+            
+            <div class="logo-section">
+                <img src="{{ url_for('static', filename='neuronet-white-logo.jpg') }}" alt="bridge.ai" class="brand-logo">
+            </div>
+            
+            <h1 class="main-title">How It Works</h1>
+            
+            <p class="subtitle">Discover the powerful AI-driven process that transforms your career journey</p>
+            
+            <div class="workflow-steps">
+                <div class="step-container">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">📄</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Upload Your Resume</h3>
+                        <p class="step-description">Simply upload your resume in PDF, DOCX, or TXT format. Our advanced parser instantly extracts and organizes your professional information including skills, experience, education, and achievements.</p>
+                    </div>
+                </div>
+                
+                <div class="step-container">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🤖</div>
+                    <div class="step-content">
+                        <h3 class="step-title">AI Analysis & Scoring</h3>
+                        <p class="step-description">Our sophisticated AI engine analyzes your resume using natural language processing and machine learning algorithms. You'll receive a comprehensive quality score along with detailed insights about strengths and areas for improvement.</p>
+                    </div>
+                </div>
+                
+                <div class="step-container">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">🔍</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Job Matching</h3>
+                        <p class="step-description">Match your resume against job descriptions to see compatibility percentages. Our semantic analysis identifies skill gaps and suggests relevant keywords to increase your chances of passing applicant tracking systems.</p>
+                    </div>
+                </div>
+                
+                <div class="step-container">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">💡</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Personalized Suggestions</h3>
+                        <p class="step-description">Receive actionable recommendations tailored to your profile. Get specific advice on skill development, experience enhancement, and resume optimization to boost your career prospects.</p>
+                    </div>
+                </div>
+                
+                <div class="step-container">
+                    <div class="step-number">5</div>
+                    <div class="step-icon">🚀</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Career Roadmap</h3>
+                        <p class="step-description">Generate a personalized career development plan with milestone tracking. Our AI creates a step-by-step roadmap to help you achieve your professional goals and advance in your chosen field.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="technology-stack">
+                <h2 class="tech-title">Powered by Cutting-Edge Technology</h2>
+                <p style="color: #b0c4de; font-size: 18px; margin-bottom: 30px;">
+                    Our platform leverages state-of-the-art AI and machine learning technologies to deliver exceptional results
+                </p>
+                
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <span class="tech-icon">🧠</span>
+                        <div class="tech-name">NLP & AI</div>
+                        <div class="tech-desc">Advanced natural language processing for semantic analysis and understanding</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <span class="tech-icon">📊</span>
+                        <div class="tech-name">Machine Learning</div>
+                        <div class="tech-desc">Intelligent algorithms that learn and improve recommendation accuracy</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <span class="tech-icon">🔒</span>
+                        <div class="tech-name">Security</div>
+                        <div class="tech-desc">Enterprise-grade encryption and privacy protection for your data</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <span class="tech-icon">⚡</span>
+                        <div class="tech-name">Real-time Processing</div>
+                        <div class="tech-desc">Instant analysis and recommendations with sub-second response times</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <span class="tech-icon">📱</span>
+                        <div class="tech-name">Responsive Design</div>
+                        <div class="tech-desc">Seamless experience across all devices and screen sizes</div>
+                    </div>
+                    
+                    <div class="tech-item">
+                        <span class="tech-icon">🌐</span>
+                        <div class="tech-name">Cloud Infrastructure</div>
+                        <div class="tech-desc">Scalable cloud architecture ensuring 99.9% uptime and reliability</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="{{ url_for('login') }}" class="btn btn-primary">Get Started Now</a>
+                <a href="{{ url_for('register') }}" class="btn btn-secondary">Create Free Account</a>
+                <a href="{{ url_for('intro') }}" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create particles
+            createParticles();
+            
+            // Add scroll animations for better user experience
+            const stepContainers = document.querySelectorAll('.step-container');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            stepContainers.forEach(container => {
+                observer.observe(container);
+            });
+        });
+        
+        // Create floating particles for futuristic effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 25;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay and duration
+                const delay = Math.random() * 15;
+                const duration = 15 + Math.random() * 10;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random color variation
+                const hue = 190 + Math.random() * 40; // Blue to purple range
+                particle.style.background = `hsla(${hue}, 100%, 70%, ${0.3 + Math.random() * 0.4})`;
+                particle.style.boxShadow = `0 0 ${10 + size * 2}px hsla(${hue}, 100%, 70%, 0.6)`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+    </script>
+</body>
+</html>

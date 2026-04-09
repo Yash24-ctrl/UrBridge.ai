@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Notifications specific styles */
+  .notifications-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .notifications-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .notifications-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+  
+  .notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .notification-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .notification-card:hover {
+    background: rgba(110, 231, 255, 0.05);
+    border-color: rgba(110, 231, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .notification-card.unread {
+    border-left: 4px solid var(--accent);
+    background: rgba(110, 231, 255, 0.08);
+  }
+  
+  .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .notification-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+  
+  .notification-time {
+    font-size: 14px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  
+  .notification-message {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0 0 10px 0;
+  }
+  
+  .notification-type {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .notification-type.realtime {
+    background: rgba(110, 231, 255, 0.2);
+    color: #6ee7ff;
+  }
+  
+  .notification-type.scheduled {
+    background: rgba(255, 180, 0, 0.2);
+    color: #ffb400;
+  }
+  
+  .no-notifications {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  
+  .no-notifications-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    color: var(--muted);
+  }
+  
+  .no-notifications-text {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .no-notifications-subtext {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .refresh-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .refresh-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+  
+  .mark-all-read {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .mark-all-read:hover {
+    background: var(--glass);
+  }
+  
+  @media (max-width: 768px) {
+    .notifications-container {
+      padding: 15px;
+    }
+    
+    .notifications-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .notification-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    
+    .notification-time {
+      align-self: flex-end;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="notifications-container">
+  <div class="notifications-header">
+    <h1 class="notifications-title">Notifications</h1>
+    <div class="header-actions">
+      <button class="mark-all-read" onclick="markAllAsRead()">
+        Mark All as Read
+      </button>
+    </div>
+  </div>
+  
+  {% if notifications %}
+    <div class="notification-list" id="notificationList">
+      {% for notification in notifications %}
+        <div class="notification-card {{ 'unread' if not notification.is_read else '' }}" 
+             data-id="{{ notification.id }}"
+             onclick="markAsRead({{ notification.id }})">
+          <div class="notification-header">
+            <h3 class="notification-title">{{ notification.title }}</h3>
+            <div class="notification-time">
+              {{ notification.created_at.split(' ')[0] }}
+            </div>
+          </div>
+          <p class="notification-message">{{ notification.message }}</p>
+          <div class="notification-footer">
+            <span class="notification-type {{ notification.type }}">
+              {{ notification.type }}
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="no-notifications">
+      <div class="no-notifications-icon">
+        <i class="fas fa-bell-slash"></i>
+      </div>
+      <h2 class="no-notifications-text">No notifications yet</h2>
+      <p class="no-notifications-subtext">We'll notify you when something important happens.</p>
+      <button class="refresh-btn" onclick="location.reload()">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Mark a notification as read
+  function markAsRead(notificationId) {
+    fetch(`/api/notifications/${notificationId}/read`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'success') {
+        // Remove the unread class from the notification card
+        const card = document.querySelector(`.notification-card[data-id="${notificationId}"]`);
+        if (card) {
+          card.classList.remove('unread');
+        }
+      } else {
+        console.error('Failed to mark notification as read:', data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error marking notification as read:', error);
+    });
+  }
+  
+  // Mark all notifications as read
+  function markAllAsRead() {
+    // In a real implementation, you would make an API call to mark all as read
+    // For now, we'll just reload the page
+    location.reload();
+  }
+  
+  // Auto-refresh notifications every 30 seconds
+  setInterval(() => {
+    // In a real implementation, you would fetch new notifications
+    // For now, we'll just log a message
+    console.log('Checking for new notifications...');
+  }, 30000);
+</script>
+{% endblock %}
