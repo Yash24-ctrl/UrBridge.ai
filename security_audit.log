@@ -6678,3 +6678,314 @@ jinja2.exceptions.UndefinedError: 'str object' has no attribute 'startsWith'
 2026-04-09 13:53:17,433 - INFO - 127.0.0.1 - - [09/Apr/2026 13:53:17] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
 2026-04-09 13:53:17,435 - INFO - 127.0.0.1 - - [09/Apr/2026 13:53:17] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
 2026-04-09 13:57:17,934 - INFO - 127.0.0.1 - - [09/Apr/2026 13:57:17] "GET /history HTTP/1.1" 200 -
+2026-04-09 14:41:29,581 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-09 14:41:29,582 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-09 14:41:36,771 - INFO - 127.0.0.1 - - [09/Apr/2026 14:41:36] "[32mGET / HTTP/1.1[0m" 302 -
+2026-04-09 14:41:42,304 - INFO - 127.0.0.1 - - [09/Apr/2026 14:41:42] "GET /pdf_upload HTTP/1.1" 200 -
+2026-04-09 14:41:42,434 - INFO - 127.0.0.1 - - [09/Apr/2026 14:41:42] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-09 14:41:42,435 - INFO - 127.0.0.1 - - [09/Apr/2026 14:41:42] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-09 14:41:42,435 - INFO - 127.0.0.1 - - [09/Apr/2026 14:41:42] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-09 14:41:42,436 - INFO - 127.0.0.1 - - [09/Apr/2026 14:41:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-09 14:41:42,438 - INFO - 127.0.0.1 - - [09/Apr/2026 14:41:42] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-09 14:42:05,572 - INFO - 127.0.0.1 - - [09/Apr/2026 14:42:05] "[32mPOST /pdf_upload HTTP/1.1[0m" 302 -
+2026-04-09 14:42:11,139 - INFO - 127.0.0.1 - - [09/Apr/2026 14:42:11] "GET /pdf_upload/results HTTP/1.1" 200 -
+2026-04-09 14:42:11,163 - INFO - 127.0.0.1 - - [09/Apr/2026 14:42:11] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-09 14:42:11,165 - INFO - 127.0.0.1 - - [09/Apr/2026 14:42:11] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-09 14:42:11,168 - INFO - 127.0.0.1 - - [09/Apr/2026 14:42:11] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-09 14:42:11,170 - INFO - 127.0.0.1 - - [09/Apr/2026 14:42:11] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-09 14:42:11,170 - INFO - 127.0.0.1 - - [09/Apr/2026 14:42:11] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-09 16:26:45,525 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-09 16:26:45,526 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-09 16:26:53,793 - INFO - 127.0.0.1 - - [09/Apr/2026 16:26:53] "[32mGET / HTTP/1.1[0m" 302 -
+2026-04-09 16:26:59,341 - INFO - 127.0.0.1 - - [09/Apr/2026 16:26:59] "GET /pdf_upload HTTP/1.1" 200 -
+2026-04-09 16:26:59,463 - INFO - 127.0.0.1 - - [09/Apr/2026 16:26:59] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-09 16:26:59,468 - INFO - 127.0.0.1 - - [09/Apr/2026 16:26:59] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-09 16:26:59,470 - INFO - 127.0.0.1 - - [09/Apr/2026 16:26:59] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-09 16:26:59,471 - INFO - 127.0.0.1 - - [09/Apr/2026 16:26:59] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-09 16:26:59,472 - INFO - 127.0.0.1 - - [09/Apr/2026 16:26:59] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-09 16:47:50,796 - INFO - 127.0.0.1 - - [09/Apr/2026 16:47:50] "GET /manual_input HTTP/1.1" 200 -
+2026-04-09 23:27:51,780 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-09 23:27:51,782 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-09 23:27:59,637 - INFO - 127.0.0.1 - - [09/Apr/2026 23:27:59] "GET / HTTP/1.1" 200 -
+2026-04-09 23:27:59,770 - INFO - 127.0.0.1 - - [09/Apr/2026 23:27:59] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-09 23:27:59,778 - INFO - 127.0.0.1 - - [09/Apr/2026 23:27:59] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-09 23:34:57,195 - INFO - 127.0.0.1 - - [09/Apr/2026 23:34:57] "GET /how-it-works HTTP/1.1" 200 -
+2026-04-09 23:34:57,244 - INFO - 127.0.0.1 - - [09/Apr/2026 23:34:57] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-09 23:34:57,255 - INFO - 127.0.0.1 - - [09/Apr/2026 23:34:57] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-09 23:35:23,716 - INFO - 127.0.0.1 - - [09/Apr/2026 23:35:23] "GET /intro HTTP/1.1" 200 -
+2026-04-09 23:35:23,757 - INFO - 127.0.0.1 - - [09/Apr/2026 23:35:23] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-09 23:35:23,775 - INFO - 127.0.0.1 - - [09/Apr/2026 23:35:23] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 10:23:04,984 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-10 10:23:04,984 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-10 10:28:49,538 - INFO - 127.0.0.1 - - [10/Apr/2026 10:28:49] "GET / HTTP/1.1" 200 -
+2026-04-10 10:28:49,671 - INFO - 127.0.0.1 - - [10/Apr/2026 10:28:49] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 10:28:49,673 - INFO - 127.0.0.1 - - [10/Apr/2026 10:28:49] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 10:29:14,557 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "GET /login HTTP/1.1" 200 -
+2026-04-10 10:29:14,590 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 10:29:14,593 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 10:29:14,598 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 10:29:14,603 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 10:29:14,607 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 10:29:14,610 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 10:29:14,614 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 10:29:14,678 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:14] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 10:29:15,144 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:15] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 10:29:26,294 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:26] "GET /register HTTP/1.1" 200 -
+2026-04-10 10:29:26,302 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:26] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 10:29:26,327 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:26] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 10:29:26,335 - INFO - 127.0.0.1 - - [10/Apr/2026 10:29:26] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 10:30:59,939 - ERROR - Exception on /register [POST]
+Traceback (most recent call last):
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\security\advanced_security.py", line 134, in decorated_function
+    return f(*args, **kwargs)
+  File "C:\Users\yashk\AI_Resume_Analyzer\app.py", line 1451, in register
+    c.execute("""
+    ~~~~~~~~~^^^^
+        INSERT INTO users (username, email, password_hash, is_verified, two_factor_enabled, password_last_changed)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    """, (username, hashed_email, password_hash, True, True))  # Auto-verify user and enable 2FA by default
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: table users has no column named password_last_changed
+2026-04-10 10:31:05,473 - INFO - 127.0.0.1 - - [10/Apr/2026 10:31:05] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2026-04-10 10:31:05,509 - INFO - 127.0.0.1 - - [10/Apr/2026 10:31:05] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 10:31:05,516 - INFO - 127.0.0.1 - - [10/Apr/2026 10:31:05] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 10:31:05,516 - INFO - 127.0.0.1 - - [10/Apr/2026 10:31:05] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 10:31:05,522 - INFO - 127.0.0.1 - - [10/Apr/2026 10:31:05] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 10:31:05,524 - INFO - 127.0.0.1 - - [10/Apr/2026 10:31:05] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 10:35:49,475 - INFO - 127.0.0.1 - - [10/Apr/2026 10:35:49] "GET /register HTTP/1.1" 200 -
+2026-04-10 10:35:49,485 - INFO - 127.0.0.1 - - [10/Apr/2026 10:35:49] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 10:35:49,507 - INFO - 127.0.0.1 - - [10/Apr/2026 10:35:49] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 10:35:49,516 - INFO - 127.0.0.1 - - [10/Apr/2026 10:35:49] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 10:37:29,558 - ERROR - Exception on /register [POST]
+Traceback (most recent call last):
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\security\advanced_security.py", line 134, in decorated_function
+    return f(*args, **kwargs)
+  File "C:\Users\yashk\AI_Resume_Analyzer\app.py", line 1451, in register
+    c.execute("""
+    ~~~~~~~~~^^^^
+        INSERT INTO users (username, email, password_hash, is_verified, two_factor_enabled, password_last_changed)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    """, (username, hashed_email, password_hash, True, True))  # Auto-verify user and enable 2FA by default
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: table users has no column named password_last_changed
+2026-04-10 11:05:02,351 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-10 11:05:02,352 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-10 11:05:25,409 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:25] "GET / HTTP/1.1" 200 -
+2026-04-10 11:05:25,523 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:25] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:05:25,525 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:25] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:05:30,521 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "GET /login HTTP/1.1" 200 -
+2026-04-10 11:05:30,555 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:05:30,558 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:05:30,565 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 11:05:30,567 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 11:05:30,571 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 11:05:30,575 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 11:05:30,578 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 11:05:30,630 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:30] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 11:05:33,842 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:33] "GET /register HTTP/1.1" 200 -
+2026-04-10 11:05:33,854 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:33] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 11:05:33,888 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:33] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 11:05:33,894 - INFO - 127.0.0.1 - - [10/Apr/2026 11:05:33] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 11:06:37,576 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-04-10 11:06:37,596 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "GET /login?success=Registration+successful!+Please+log+in+and+complete+your+profile. HTTP/1.1" 200 -
+2026-04-10 11:06:37,639 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 11:06:37,640 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:06:37,641 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:06:37,647 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 11:06:37,649 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 11:06:37,653 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 11:06:37,662 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:37] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 11:06:38,087 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:38] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 11:06:56,781 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "POST /login HTTP/1.1" 200 -
+2026-04-10 11:06:56,817 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:06:56,820 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:06:56,823 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 11:06:56,826 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 11:06:56,832 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 11:06:56,833 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 11:06:56,839 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 11:06:56,842 - INFO - 127.0.0.1 - - [10/Apr/2026 11:06:56] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 11:07:25,046 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:25] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-10 11:07:25,107 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:25] "GET /profile HTTP/1.1" 200 -
+2026-04-10 11:07:25,144 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:25] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:07:25,146 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:25] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:07:25,150 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:25] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 11:07:25,153 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:25] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 11:07:25,156 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:25] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 11:07:59,075 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:59] "[32mPOST /profile HTTP/1.1[0m" 302 -
+2026-04-10 11:07:59,098 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:59] "GET /pdf_upload HTTP/1.1" 200 -
+2026-04-10 11:07:59,143 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:59] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:07:59,146 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:59] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:07:59,149 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:59] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 11:07:59,153 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:59] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 11:07:59,183 - INFO - 127.0.0.1 - - [10/Apr/2026 11:07:59] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 11:08:06,109 - INFO - 127.0.0.1 - - [10/Apr/2026 11:08:06] "GET /manual_input HTTP/1.1" 200 -
+2026-04-10 11:36:58,387 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-10 11:36:58,387 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-10 11:37:14,640 - INFO - 127.0.0.1 - - [10/Apr/2026 11:37:14] "GET / HTTP/1.1" 200 -
+2026-04-10 11:37:16,557 - INFO - 127.0.0.1 - - [10/Apr/2026 11:37:16] "GET /static/css/styles.css HTTP/1.1" 200 -
+2026-04-10 11:37:16,809 - INFO - 127.0.0.1 - - [10/Apr/2026 11:37:16] "GET /static/neuronet-white-logo.jpg HTTP/1.1" 200 -
+2026-04-10 11:37:40,775 - INFO - 127.0.0.1 - - [10/Apr/2026 11:37:40] "GET / HTTP/1.1" 200 -
+2026-04-10 11:38:00,800 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:00] "GET / HTTP/1.1" 200 -
+2026-04-10 11:38:01,706 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:01] "GET /static/css/styles.css HTTP/1.1" 200 -
+2026-04-10 11:38:02,003 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:02] "GET /static/neuronet-white-logo.jpg HTTP/1.1" 200 -
+2026-04-10 11:38:19,946 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:19] "GET / HTTP/1.1" 200 -
+2026-04-10 11:38:20,872 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:20] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:38:20,873 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:20] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:38:47,909 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:47] "GET / HTTP/1.1" 200 -
+2026-04-10 11:38:48,813 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:48] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:38:48,815 - INFO - 127.0.0.1 - - [10/Apr/2026 11:38:48] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:39:25,786 - INFO - 127.0.0.1 - - [10/Apr/2026 11:39:25] "GET / HTTP/1.1" 200 -
+2026-04-10 11:39:26,716 - INFO - 127.0.0.1 - - [10/Apr/2026 11:39:26] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:39:26,717 - INFO - 127.0.0.1 - - [10/Apr/2026 11:39:26] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 11:48:37,502 - ERROR - Exception on /auth/google/login [GET]
+Traceback (most recent call last):
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\connectionpool.py", line 773, in urlopen
+    self._prepare_proxy(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _prepare_proxy
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ~~~~~~~~~~~~~~^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+urllib3.exceptions.NewConnectionError: HTTPSConnection(host='127.0.0.1', port=9): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+urllib3.exceptions.ProxyError: ('Unable to connect to proxy', NewConnectionError("HTTPSConnection(host='127.0.0.1', port=9): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='accounts.google.com', port=443): Max retries exceeded with url: /.well-known/openid-configuration (Caused by ProxyError('Unable to connect to proxy', NewConnectionError("HTTPSConnection(host='127.0.0.1', port=9): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it")))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\app.py", line 1269, in google_oauth_login
+    return google.authorize_redirect(redirect_uri)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\authlib\integrations\flask_client\apps.py", line 49, in authorize_redirect
+    rv = self.create_authorization_url(redirect_uri, **kwargs)
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\authlib\integrations\base_client\sync_app.py", line 341, in create_authorization_url
+    metadata = self.load_server_metadata()
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\authlib\integrations\base_client\sync_app.py", line 324, in load_server_metadata
+    resp = session.request(
+        "GET", self._server_metadata_url, withhold_token=True
+    )
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\authlib\integrations\requests_client\oauth2_session.py", line 140, in request
+    return super().request(method, url, auth=auth, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\yashk\AI_Resume_Analyzer\.venv\Lib\site-packages\requests\adapters.py", line 671, in send
+    raise ProxyError(e, request=request)
+requests.exceptions.ProxyError: HTTPSConnectionPool(host='accounts.google.com', port=443): Max retries exceeded with url: /.well-known/openid-configuration (Caused by ProxyError('Unable to connect to proxy', NewConnectionError("HTTPSConnection(host='127.0.0.1', port=9): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it")))
+2026-04-10 11:58:27,476 - INFO - 127.0.0.1 - - [10/Apr/2026 11:58:27] "GET / HTTP/1.1" 200 -
+2026-04-10 11:58:28,482 - INFO - 127.0.0.1 - - [10/Apr/2026 11:58:28] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 11:58:28,483 - INFO - 127.0.0.1 - - [10/Apr/2026 11:58:28] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 12:00:37,313 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:37] "GET /register HTTP/1.1" 200 -
+2026-04-10 12:00:38,125 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:38] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 12:00:38,419 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:38] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 12:00:38,423 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:38] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 12:00:38,426 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:38] "GET /static/js/main.js HTTP/1.1" 200 -
+2026-04-10 12:00:38,426 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:38] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 12:00:38,428 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:38] "GET /static/js/responsive-sidebar.js HTTP/1.1" 200 -
+2026-04-10 12:00:38,429 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:38] "GET /static/manifest.json HTTP/1.1" 200 -
+2026-04-10 12:00:39,226 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:39] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 12:00:40,019 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:40] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 12:00:44,166 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:44] "[32mGET /auth/google/login HTTP/1.1[0m" 302 -
+2026-04-10 12:00:45,180 - INFO - 127.0.0.1 - - [10/Apr/2026 12:00:45] "[32mGET /auth/google/login HTTP/1.1[0m" 302 -
+2026-04-10 12:04:24,754 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:24] "GET /register HTTP/1.1" 200 -
+2026-04-10 12:04:25,546 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:25] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 12:04:25,547 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:25] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 12:04:25,846 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:25] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-10 12:04:25,848 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:25] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 12:04:25,851 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:25] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-10 12:04:25,853 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:25] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 12:04:25,855 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:25] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 12:04:26,632 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:26] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-10 12:04:29,654 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:29] "[32mGET /auth/google/login HTTP/1.1[0m" 302 -
+2026-04-10 12:04:30,583 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:30] "[32mGET /auth/google/login HTTP/1.1[0m" 302 -

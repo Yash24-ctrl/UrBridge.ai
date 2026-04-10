@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_cors import CORS  # For production API security
 from functools import wraps
 import sqlite3
+import os
 import joblib
 import pandas as pd
 import csv
@@ -62,9 +63,16 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for cross-origin requests in production
 app.secret_key = os.getenv('SECRET_KEY', 'yash_secret_key')
 
+# OAuth needs non-secure cookies on local HTTP so the provider state survives redirects.
+is_https_deployment = os.getenv('SESSION_COOKIE_SECURE', '').lower() == 'true'
+if not is_https_deployment:
+    flask_env = os.getenv('FLASK_ENV', '').lower()
+    app_base_url = os.getenv('APP_BASE_URL', '')
+    is_https_deployment = flask_env == 'production' or app_base_url.startswith('https://')
+
 # Production configuration
 app.config.update(
-    SESSION_COOKIE_SECURE=True,  # Now set to True for production with HTTPS
+    SESSION_COOKIE_SECURE=is_https_deployment,
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax',
     PERMANENT_SESSION_LIFETIME=timedelta(hours=24),  # Session expires after 24 hours
@@ -93,6 +101,83 @@ google = oauth.register(
         "scope": "openid email profile"
     },
 )
+
+def get_oauth_redirect_uri(endpoint_name, env_var_name):
+    """Use the active local host in development, otherwise prefer explicit provider redirect URIs."""
+    request_host = request.host or ''
+    if request_host.startswith('127.0.0.1:') or request_host.startswith('localhost:'):
+        return url_for(endpoint_name, _external=True)
+
+    configured_redirect = os.getenv(env_var_name, '').strip()
+    if configured_redirect:
+        return configured_redirect
+    return url_for(endpoint_name, _external=True)
+
+def is_provider_configured(*env_var_names):
+    return all(os.getenv(name, '').strip() for name in env_var_names)
+
+def split_full_name(full_name):
+    parts = (full_name or '').strip().split()
+    if not parts:
+        return '', ''
+    if len(parts) == 1:
+        return parts[0], ''
+    return parts[0], ' '.join(parts[1:])
+
+def get_or_create_social_user(email, full_name, two_factor_enabled=False):
+    """Create or fetch a social-login user and return routing details."""
+    hashed_email = hash_identifier(email)
+    first_name, last_name = split_full_name(full_name)
+
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    try:
+        c.execute("SELECT id, username FROM users WHERE email = ?", (hashed_email,))
+        existing_user = c.fetchone()
+
+        if existing_user:
+            user_id, username = existing_user
+            return {
+                'user_id': user_id,
+                'username': username,
+                'is_new_user': False
+            }
+
+        username = email.split('@')[0]
+        counter = 1
+        original_username = username
+        while True:
+            c.execute("SELECT 1 FROM users WHERE username = ?", (username,))
+            if not c.fetchone():
+                break
+            username = f"{original_username}_{counter}"
+            counter += 1
+
+        random_password = secrets.token_urlsafe(16)
+        password_hash = generate_password_hash(random_password)
+
+        c.execute("""
+            INSERT INTO users (username, email, password_hash, is_verified, two_factor_enabled, password_last_changed)
+            VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        """, (username, hashed_email, password_hash, True, two_factor_enabled))
+        user_id = c.lastrowid
+
+        c.execute(
+            "INSERT INTO user_profiles (user_id, first_name, last_name) VALUES (?, ?, ?)",
+            (user_id, first_name, last_name)
+        )
+
+        conn.commit()
+        return {
+            'user_id': user_id,
+            'username': username,
+            'is_new_user': True
+        }
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
 
 # Performance tracking middleware
 import time
@@ -313,6 +398,35 @@ def init_db():
 # Call init_db to ensure database is created
 init_db()
 
+def ensure_users_table_schema():
+    """Upgrade older users tables so current auth flows can insert safely."""
+    conn = sqlite3.connect(DATABASE)
+    try:
+        c = conn.cursor()
+        c.execute("PRAGMA table_info(users)")
+        columns = [info[1] for info in c.fetchall()]
+
+        if 'password_last_changed' not in columns:
+            # SQLite only allows constant defaults in ALTER TABLE, so add the
+            # column first and then backfill existing users.
+            c.execute("ALTER TABLE users ADD COLUMN password_last_changed TIMESTAMP")
+            c.execute("""
+                UPDATE users
+                SET password_last_changed = COALESCE(password_last_changed, created_at, CURRENT_TIMESTAMP)
+            """)
+
+        if 'is_verified' not in columns:
+            c.execute("ALTER TABLE users ADD COLUMN is_verified BOOLEAN DEFAULT TRUE")
+            c.execute("UPDATE users SET is_verified = COALESCE(is_verified, TRUE)")
+
+        if 'two_factor_enabled' not in columns:
+            c.execute("ALTER TABLE users ADD COLUMN two_factor_enabled BOOLEAN DEFAULT FALSE")
+            c.execute("UPDATE users SET two_factor_enabled = COALESCE(two_factor_enabled, FALSE)")
+
+        conn.commit()
+    finally:
+        conn.close()
+
 # Register export routes
 register_export_routes(app)
 # Register performance routes
@@ -326,29 +440,11 @@ EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
-# Update existing database schema to handle verification_token column if it exists
+# Update existing database schema to handle older users table layouts
 try:
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
-    # Check if verification_token column exists
-    c.execute("PRAGMA table_info(users)")
-    columns = [info[1] for info in c.fetchall()]
-    if 'verification_token' in columns:
-        # SQLite doesn't support DROP COLUMN directly, so we need to recreate the table
-        # But we'll just set is_verified to TRUE for all users and ignore the verification_token
-        c.execute("UPDATE users SET is_verified = TRUE WHERE is_verified = FALSE")
-    
-    # Add password_last_changed column if it doesn't exist
-    c.execute("PRAGMA table_info(users)")
-    columns = [info[1] for info in c.fetchall()]
-    if 'password_last_changed' not in columns:
-        c.execute("ALTER TABLE users ADD COLUMN password_last_changed TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    
-    conn.commit()
-    conn.close()
+    ensure_users_table_schema()
 except Exception as e:
-    # Handle any database errors silently
-    pass
+    print(f"Warning: Failed to update users table schema: {e}")
 
 
 def save_profile_to_csv(user_data):
@@ -1169,12 +1265,25 @@ def home():
 @app.route('/auth/google/login')
 def google_oauth_login():
     """Initiate Google OAuth flow"""
-    redirect_uri = url_for('google_oauth_callback', _external=True)
-    return google.authorize_redirect(redirect_uri)
+    if not is_provider_configured("GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET"):
+        flash("Google sign-in is not configured yet. Please contact support.", "error")
+        return redirect(url_for('login'))
+
+    redirect_uri = get_oauth_redirect_uri('google_oauth_callback', 'GOOGLE_REDIRECT_URI')
+    try:
+        return google.authorize_redirect(redirect_uri)
+    except Exception as e:
+        print(f"Google OAuth login error: {e}")
+        flash("Google sign-in is temporarily unavailable. Please try again.", "error")
+        return redirect(url_for('login'))
 
 @app.route('/auth/google/callback')
 def google_oauth_callback():
     """Handle Google OAuth callback"""
+    if not is_provider_configured("GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET"):
+        flash("Google sign-in is not configured yet. Please contact support.", "error")
+        return redirect(url_for('login'))
+
     try:
         token = google.authorize_access_token()
         # For OpenID Connect, get user info from the ID token
@@ -1192,190 +1301,101 @@ def google_oauth_callback():
             user_info = user_info_response.json()
     except Exception as e:
         print(f"OAuth callback error: {e}")
-        flash(f"Failed to authenticate with Google: {str(e)}", "error")
+        flash("Google sign-in failed. Please try again.", "error")
         return redirect(url_for('login'))
-    
-    # Hash the email for comparison to comply with security policy
-    hashed_email = hash_identifier(user_info['email'])
-    
-    # Check if user already exists
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
-    c.execute("SELECT id, username FROM users WHERE email = ?", (hashed_email,))
-    existing_user = c.fetchone()
-    
-    if existing_user:
-        # Existing user - log them in
-        user_id, username = existing_user
-        session['user_id'] = user_id
-        session['username'] = username  # Store username for display purposes
-        # Remove old 'user' key to avoid confusion
+
+    email = (user_info or {}).get('email')
+    full_name = (user_info or {}).get('name') or (user_info or {}).get('given_name', '')
+    if not email:
+        flash("Google did not return an email address for this account.", "error")
+        return redirect(url_for('login'))
+
+    try:
+        social_user = get_or_create_social_user(email, full_name, two_factor_enabled=False)
+        session['user_id'] = social_user['user_id']
+        session['username'] = social_user['username']
         session.pop('user', None)
-        
-        # Send login notification
-        send_login_notification(user_info['email'], user_info['name'], request.remote_addr)
-        
-        # Check if profile is complete, redirect to profile if not
-        if not is_profile_complete(user_id):
-            return redirect(url_for("profile"))
-        
-        # Redirect to manual input page (mandatory for all users)
-        return redirect(url_for('manual_input'))
-    else:
-        # New user - create account
-        try:
-            # Generate a unique username
-            username = user_info['email'].split('@')[0]
-            # Ensure username is unique
-            counter = 1
-            original_username = username
-            while True:
-                c.execute("SELECT 1 FROM users WHERE username = ?", (username,))
-                if not c.fetchone():
-                    break
-                username = f"{original_username}_{counter}"
-                counter += 1
-            
-            # Create user with a random password (they'll use OAuth to login)
-            import secrets
-            random_password = secrets.token_urlsafe(16)
-            password_hash = generate_password_hash(random_password)
-            
-            # Hash the email for security
-            hashed_email = hash_identifier(user_info['email'])
-            
-            c.execute("""
-                INSERT INTO users (username, email, password_hash, is_verified, two_factor_enabled, password_last_changed) 
-                VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-            """, (username, hashed_email, password_hash, True, False))  # No 2FA for OAuth users
-            user_id = c.lastrowid
-            
-            # Create profile for user
-            c.execute("INSERT INTO user_profiles (user_id, first_name, last_name) VALUES (?, ?, ?)", 
-                     (user_id, user_info['name'].split(' ')[0], ' '.join(user_info['name'].split(' ')[1:])))
-            
-            conn.commit()
-            
-            # Send welcome notification
-            send_new_user_notification(user_info['email'], user_info['name'])
-            
-            # Log user in
-            session['user_id'] = user_id
-            # Remove old 'user' key to avoid confusion
-            session.pop('user', None)
-            
-            conn.close()
-            
+
+        if social_user['is_new_user']:
+            send_new_user_notification(email, full_name or social_user['username'])
             flash("Account created successfully!", "success")
-            return redirect(url_for('profile'))  # New users should complete their profile
-        except Exception as e:
-            conn.rollback()
-            conn.close()
-            print(f"Error creating Google user: {e}")
-            flash("Failed to create account. Please try again.", "error")
-            return redirect(url_for('register'))
+            return redirect(url_for('profile'))
+
+        send_login_notification(email, full_name or social_user['username'], request.remote_addr)
+
+        if not is_profile_complete(social_user['user_id']):
+            return redirect(url_for("profile"))
+
+        return redirect(url_for('manual_input'))
+    except Exception as e:
+        print(f"Error handling Google user: {e}")
+        flash("We couldn't complete Google sign-in right now. Please try again.", "error")
+        return redirect(url_for('login'))
 
 # LinkedIn OAuth Routes
 @app.route('/auth/linkedin/login')
 def linkedin_oauth_login():
     """Initiate LinkedIn OAuth flow"""
-    redirect_uri = linkedin_auth_login()
-    return redirect(redirect_uri)
+    if not is_provider_configured("LINKEDIN_CLIENT_ID", "LINKEDIN_CLIENT_SECRET"):
+        flash("LinkedIn sign-in is not configured yet. Please contact support.", "error")
+        return redirect(url_for('login'))
+
+    try:
+        redirect_uri = linkedin_auth_login(get_oauth_redirect_uri('linkedin_oauth_callback', 'LINKEDIN_REDIRECT_URI'))
+        return redirect(redirect_uri)
+    except Exception as e:
+        print(f"LinkedIn OAuth login error: {e}")
+        flash("LinkedIn sign-in is temporarily unavailable. Please try again.", "error")
+        return redirect(url_for('login'))
 
 @app.route('/auth/linkedin/callback')
 def linkedin_oauth_callback():
     """Handle LinkedIn OAuth callback"""
+    if not is_provider_configured("LINKEDIN_CLIENT_ID", "LINKEDIN_CLIENT_SECRET"):
+        flash("LinkedIn sign-in is not configured yet. Please contact support.", "error")
+        return redirect(url_for('login'))
+
     code = request.args.get('code')
     if not code:
         flash("Authorization failed", "error")
         return redirect(url_for('login'))
     
     # Use the existing LinkedIn auth module
-    user_data = linkedin_auth_callback(code)
+    user_data = linkedin_auth_callback(
+        code,
+        get_oauth_redirect_uri('linkedin_oauth_callback', 'LINKEDIN_REDIRECT_URI')
+    )
     if not user_data:
         flash("Failed to authenticate with LinkedIn", "error")
         return redirect(url_for('login'))
-    
-    # Hash the email for comparison to comply with security policy
-    hashed_email = hash_identifier(user_data['linkedin_email'])
-    
-    # Check if user already exists
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
-    c.execute("SELECT id, username FROM users WHERE email = ?", (hashed_email,))
-    existing_user = c.fetchone()
-    
-    if existing_user:
-        # Existing user - log them in
-        user_id, username = existing_user
-        session['user_id'] = user_id
-        session['username'] = username  # Store username for display purposes
-        # Remove old 'user' key to avoid confusion
+
+    email = user_data.get('linkedin_email')
+    full_name = user_data.get('linkedin_name')
+    if not email:
+        flash("LinkedIn did not return an email address for this account.", "error")
+        return redirect(url_for('login'))
+
+    try:
+        social_user = get_or_create_social_user(email, full_name, two_factor_enabled=False)
+        session['user_id'] = social_user['user_id']
+        session['username'] = social_user['username']
         session.pop('user', None)
-        
-        # Send login notification
-        send_login_notification(user_data['linkedin_email'], user_data['linkedin_name'], request.remote_addr)
-        
-        # Check if profile is complete, redirect to profile if not
-        if not is_profile_complete(user_id):
-            return redirect(url_for("profile"))
-        
-        # Redirect to manual input page (mandatory for all users)
-        return redirect(url_for('manual_input'))
-    else:
-        # New user - create account
-        try:
-            # Generate a unique username
-            username = user_data['linkedin_email'].split('@')[0]
-            # Ensure username is unique
-            counter = 1
-            original_username = username
-            while True:
-                c.execute("SELECT 1 FROM users WHERE username = ?", (username,))
-                if not c.fetchone():
-                    break
-                username = f"{original_username}_{counter}"
-                counter += 1
-            
-            # Create user with a random password (they'll use OAuth to login)
-            import secrets
-            random_password = secrets.token_urlsafe(16)
-            password_hash = generate_password_hash(random_password)
-            
-            # Hash the email for security
-            hashed_email = hash_identifier(user_data['linkedin_email'])
-            
-            c.execute("""
-                INSERT INTO users (username, email, password_hash, is_verified, two_factor_enabled, password_last_changed) 
-                VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-            """, (username, hashed_email, password_hash, True, False))  # No 2FA for OAuth users
-            user_id = c.lastrowid
-            
-            # Create profile for user
-            c.execute("INSERT INTO user_profiles (user_id, first_name, last_name) VALUES (?, ?, ?)", 
-                     (user_id, user_data['linkedin_name'].split(' ')[0], ' '.join(user_data['linkedin_name'].split(' ')[1:])))
-            
-            conn.commit()
-            
-            # Send welcome notification
-            send_new_user_notification(user_data['linkedin_email'], user_data['linkedin_name'])
-            
-            # Log user in
-            session['user_id'] = user_id
-            session['username'] = username  # Store username for display purposes
-            # Remove old 'user' key to avoid confusion
-            session.pop('user', None)
-            
-            conn.close()
-            
+
+        if social_user['is_new_user']:
+            send_new_user_notification(email, full_name or social_user['username'])
             flash("Account created successfully!", "success")
-            return redirect(url_for('profile'))  # New users should complete their profile
-        except Exception as e:
-            conn.rollback()
-            conn.close()
-            print(f"Error creating LinkedIn user: {e}")
-            flash("Failed to create account. Please try again.", "error")
-            return redirect(url_for('register'))
+            return redirect(url_for('profile'))
+
+        send_login_notification(email, full_name or social_user['username'], request.remote_addr)
+
+        if not is_profile_complete(social_user['user_id']):
+            return redirect(url_for("profile"))
+
+        return redirect(url_for('manual_input'))
+    except Exception as e:
+        print(f"Error handling LinkedIn user: {e}")
+        flash("We couldn't complete LinkedIn sign-in right now. Please try again.", "error")
+        return redirect(url_for('login'))
 
 @app.route('/intro')
 
@@ -1385,7 +1405,6 @@ def intro():
 @app.route('/how-it-works')
 def how_it_works():
     return render_template("how_it_works.html")
-
 
 @app.route('/about-us')
 def about_us():
@@ -1475,7 +1494,15 @@ def register():
                 
                 return redirect(url_for("login", success="Registration successful! Please log in and complete your profile."))
             except sqlite3.IntegrityError:
+                conn.rollback()
                 return render_template("register.html", error="⚠️ Username or email already exists!")
+            except Exception as e:
+                conn.rollback()
+                print(f"Registration error for {email}: {e}")
+                return render_template(
+                    "register.html",
+                    error="We couldn't create your account right now. Please try again in a moment."
+                )
             finally:
                 conn.close()
 
@@ -3424,7 +3451,7 @@ def extract_skills_from_text(text):
     
     # Clean and normalize skills
     cleaned_skills = []
-    for skill in skills:
+    for skill in list(skills):
         skill = skill.strip()
         # Remove common prefixes/suffixes
         skill = re.sub(r'^(experience with|knowledge of|proficient in|familiar with)\s+', '', skill, flags=re.IGNORECASE)
