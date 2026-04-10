@@ -26,7 +26,6 @@ import threading
 from enhanced_resume_parser import extract_text_from_pdf_with_ocr, extract_resume_data_from_text
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from fpdf import FPDF
 import io
 import hashlib
 import secrets
@@ -123,6 +122,14 @@ def split_full_name(full_name):
     if len(parts) == 1:
         return parts[0], ''
     return parts[0], ' '.join(parts[1:])
+
+def get_fpdf_class():
+    """Import FPDF lazily so optional PDF features can't crash app startup."""
+    try:
+        from fpdf import FPDF as pdf_class
+        return pdf_class
+    except ModuleNotFoundError:
+        return None
 
 def get_or_create_social_user(email, full_name, two_factor_enabled=False):
     """Create or fetch a social-login user and return routing details."""
@@ -1689,6 +1696,22 @@ def resend_2fa_code():
     print("NEW CODE GENERATED AND SENT")
     return result
 
+
+def get_user_public_key(user_id):
+    """Retrieve the public key for a user from the database."""
+    try:
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute("SELECT public_key FROM user_keys WHERE user_id = ?", (user_id,))
+        result = c.fetchone()
+        conn.close()
+        
+        if result:
+            return result[0]
+        return None
+    except Exception as e:
+        print(f"Error retrieving public key for user {user_id}: {str(e)}")
+        return None
 
 @app.route('/api/user/public_key')
 def get_my_public_key():
@@ -4859,7 +4882,7 @@ def train_advanced_job_matcher():
         if oob_score != 'N/A':
             print(f"Model OOB score (R²): {oob_score:.4f}")
         
-        # If model accuracy is not high enough, try alternative models
+           # If model accuracy is not high enough, try alternative models
         if test_score < 0.985:  # 98.5% threshold for R² score
             print("Model accuracy below threshold, trying alternative models...")
             # Try XGBoost for even better accuracy
@@ -4884,7 +4907,9 @@ def train_advanced_job_matcher():
                     print("Using XGBoost model for better accuracy.")
             except ImportError:
                 print("XGBoost not available, continuing with current model.")
-        
+            except Exception as e:
+                print(f"XGBoost training failed: {e}. Continuing with current model.")
+     
         # If we still don't meet the threshold, try neural network
         final_test_score = model.score(X_test, y_test)
         if final_test_score < 0.985:
@@ -4958,15 +4983,18 @@ def predict_job_fit_with_ml(resume_data, job_description):
             # Fallback to simple text processing
             text_vector = tfidf.transform([combined_text[:1000]]).toarray()  # Limit text length
         
-        # Combine features
+          # Combine features
         X = np.hstack([X_numerical, text_vector])
+        
+        # Make prediction
+        predicted_score = model.predict(X)[0]
         
         # Enhanced confidence adjustment for 98.5% target
         confidence = 0.985  # 98.5% confidence target
         
         # Adjust score based on confidence with minimal adjustment
         adjusted_score = predicted_score * confidence + (50 * (1 - confidence))  # Blend with neutral score
-        
+      
         # Ensure score is within bounds and format to 2 decimal places
         final_score = max(0, min(100, adjusted_score))
         final_score = round(final_score, 2)
@@ -5293,6 +5321,10 @@ def extract_data_from_resume_text_legacy(text):
 def download_analysis():
     if "user_id" not in session:
         return redirect(url_for('login'))
+
+    pdf_class = get_fpdf_class()
+    if pdf_class is None:
+        return jsonify({'error': 'PDF export is temporarily unavailable on this deployment.'}), 503
     
     # Get results from session
     results = session.get('resume_results')
@@ -5301,7 +5333,7 @@ def download_analysis():
     
     try:
         # Create PDF
-        pdf = FPDF()
+        pdf = pdf_class()
         pdf.add_page()
         pdf.set_auto_page_break(auto=True, margin=15)
         
@@ -5479,7 +5511,7 @@ def download_analysis():
         # Log the error for debugging
         print(f"Error generating PDF: {str(e)}")
         # Return a simple error PDF as fallback
-        pdf = FPDF()
+        pdf = pdf_class()
         pdf.add_page()
         pdf.set_font("Arial", "B", 16)
         pdf.cell(0, 10, "Error Generating Report", ln=True, align="C")
@@ -5704,15 +5736,19 @@ if __name__ == "__main__":
     # This is for development only
     import os
     app.secret_key = os.getenv('SECRET_KEY', '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')
-    
+
+    port = int(os.getenv('PORT', '5000'))
+    host = '0.0.0.0' if os.getenv('PORT') or os.getenv('FLASK_ENV') == 'production' else '127.0.0.1'
+
     # Check if running in production
-    if os.getenv('FLASK_ENV') == 'production':
+    if os.getenv('FLASK_ENV') == 'production' and os.name == 'nt':
         # Use waitress for Windows or gunicorn for Linux/Mac in production
         from waitress import serve
-        print("Starting production server on http://0.0.0.0:8000")
+        print(f"Starting production server on http://{host}:{port}")
         print("Your AI Resume Analyzer is now running with all security features enabled for production!")
-        serve(app, host='0.0.0.0', port=8000)
+        serve(app, host=host, port=port)
     else:
-        print("Starting development server on http://127.0.0.1:5000")
-        print("WARNING: Running in development mode. Not suitable for production!")
-        app.run(host='127.0.0.1', port=5000, debug=False)  # Debug is now off even in dev
+        print(f"Starting server on http://{host}:{port}")
+        if host == '127.0.0.1':
+            print("WARNING: Running in development mode. Not suitable for production!")
+        app.run(host=host, port=port, debug=False)
