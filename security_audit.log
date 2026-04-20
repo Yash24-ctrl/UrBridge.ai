@@ -6989,3 +6989,305 @@ requests.exceptions.ProxyError: HTTPSConnectionPool(host='accounts.google.com', 
 2026-04-10 12:04:26,632 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:26] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
 2026-04-10 12:04:29,654 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:29] "[32mGET /auth/google/login HTTP/1.1[0m" 302 -
 2026-04-10 12:04:30,583 - INFO - 127.0.0.1 - - [10/Apr/2026 12:04:30] "[32mGET /auth/google/login HTTP/1.1[0m" 302 -
+2026-04-10 14:53:00,297 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-10 14:53:00,298 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-10 16:28:10,388 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-10 16:28:10,389 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-10 16:39:11,560 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-10 16:39:11,560 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-10 17:05:25,538 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-10 17:05:25,538 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-10 17:05:30,899 - INFO - 127.0.0.1 - - [10/Apr/2026 17:05:30] "[32mGET / HTTP/1.1[0m" 302 -
+2026-04-10 17:05:30,934 - INFO - 127.0.0.1 - - [10/Apr/2026 17:05:30] "GET /pdf_upload HTTP/1.1" 200 -
+2026-04-10 17:05:31,093 - INFO - 127.0.0.1 - - [10/Apr/2026 17:05:31] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 17:05:31,097 - INFO - 127.0.0.1 - - [10/Apr/2026 17:05:31] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 17:05:31,103 - INFO - 127.0.0.1 - - [10/Apr/2026 17:05:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 17:05:31,104 - INFO - 127.0.0.1 - - [10/Apr/2026 17:05:31] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 17:05:31,105 - INFO - 127.0.0.1 - - [10/Apr/2026 17:05:31] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 17:06:14,258 - INFO - 127.0.0.1 - - [10/Apr/2026 17:06:14] "POST /pdf_upload HTTP/1.1" 200 -
+2026-04-10 17:06:14,276 - INFO - 127.0.0.1 - - [10/Apr/2026 17:06:14] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-10 17:06:14,281 - INFO - 127.0.0.1 - - [10/Apr/2026 17:06:14] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-10 17:06:14,283 - INFO - 127.0.0.1 - - [10/Apr/2026 17:06:14] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-10 17:06:14,285 - INFO - 127.0.0.1 - - [10/Apr/2026 17:06:14] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-10 17:06:14,286 - INFO - 127.0.0.1 - - [10/Apr/2026 17:06:14] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-10 18:10:07,615 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-10 18:10:07,616 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-11 16:22:01,132 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-11 16:22:01,133 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-13 11:08:11,505 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-13 11:08:11,506 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-13 11:09:34,650 - INFO - 127.0.0.1 - - [13/Apr/2026 11:09:34] "GET / HTTP/1.1" 200 -
+2026-04-13 11:09:34,824 - INFO - 127.0.0.1 - - [13/Apr/2026 11:09:34] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:09:34,829 - INFO - 127.0.0.1 - - [13/Apr/2026 11:09:34] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:09:43,831 - INFO - 127.0.0.1 - - [13/Apr/2026 11:09:43] "GET /intro HTTP/1.1" 200 -
+2026-04-13 11:09:43,865 - INFO - 127.0.0.1 - - [13/Apr/2026 11:09:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:09:43,870 - INFO - 127.0.0.1 - - [13/Apr/2026 11:09:43] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:47:32,077 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-13 11:47:32,078 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-13 11:47:35,308 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:35] "GET / HTTP/1.1" 200 -
+2026-04-13 11:47:35,479 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:35] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:47:35,484 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:35] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:47:39,696 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:39] "GET /how-it-works HTTP/1.1" 200 -
+2026-04-13 11:47:39,724 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:39] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:47:39,727 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:39] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:47:55,473 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "GET /login HTTP/1.1" 200 -
+2026-04-13 11:47:55,502 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:47:55,504 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:47:55,514 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-13 11:47:55,516 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-13 11:47:55,519 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-13 11:47:55,520 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-13 11:47:55,526 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-13 11:47:55,533 - INFO - 127.0.0.1 - - [13/Apr/2026 11:47:55] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-13 11:48:12,719 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "POST /login HTTP/1.1" 200 -
+2026-04-13 11:48:12,749 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:48:12,752 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:48:12,756 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-13 11:48:12,760 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-13 11:48:12,760 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-13 11:48:12,763 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-13 11:48:12,765 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-13 11:48:12,781 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:12] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-13 11:48:28,749 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:28] "GET /guest/analyzer HTTP/1.1" 200 -
+2026-04-13 11:48:31,374 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:31] "GET /login HTTP/1.1" 200 -
+2026-04-13 11:48:31,382 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:31] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-13 11:48:31,392 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:31] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-13 11:48:31,399 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:31] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-13 11:48:33,251 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:33] "GET /register HTTP/1.1" 200 -
+2026-04-13 11:48:33,259 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:33] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-13 11:48:33,274 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:33] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-13 11:48:33,280 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:33] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-13 11:48:38,886 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:38] "GET /login HTTP/1.1" 200 -
+2026-04-13 11:48:38,900 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:38] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-13 11:48:38,914 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:38] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-13 11:48:38,924 - INFO - 127.0.0.1 - - [13/Apr/2026 11:48:38] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-13 11:49:06,359 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:06] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-13 11:49:06,388 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:06] "GET /manual_input HTTP/1.1" 200 -
+2026-04-13 11:49:06,418 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:06] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:49:06,421 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:06] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:49:06,428 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-13 11:49:06,431 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:06] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-13 11:49:06,432 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:06] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-13 11:49:30,156 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:30] "[32mPOST /manual_input HTTP/1.1[0m" 302 -
+2026-04-13 11:49:30,225 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:30] "GET /analyzer/results HTTP/1.1" 200 -
+2026-04-13 11:49:30,261 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:30] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:49:30,267 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:30] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:49:30,271 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:30] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-13 11:49:30,275 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:30] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-13 11:49:30,316 - INFO - 127.0.0.1 - - [13/Apr/2026 11:49:30] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-13 11:50:28,922 - INFO - 127.0.0.1 - - [13/Apr/2026 11:50:28] "GET /manual_input HTTP/1.1" 200 -
+2026-04-13 11:50:28,952 - INFO - 127.0.0.1 - - [13/Apr/2026 11:50:28] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 11:50:28,956 - INFO - 127.0.0.1 - - [13/Apr/2026 11:50:28] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 11:50:28,958 - INFO - 127.0.0.1 - - [13/Apr/2026 11:50:28] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-13 11:50:28,962 - INFO - 127.0.0.1 - - [13/Apr/2026 11:50:28] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-13 11:50:28,964 - INFO - 127.0.0.1 - - [13/Apr/2026 11:50:28] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-13 11:50:28,982 - INFO - 127.0.0.1 - - [13/Apr/2026 11:50:28] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 12:04:07,721 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-13 12:04:07,721 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-13 12:44:18,869 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-04-13 12:44:18,895 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "GET /login HTTP/1.1" 200 -
+2026-04-13 12:44:18,946 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 12:44:18,949 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 12:44:18,955 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-13 12:44:18,964 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-13 12:44:18,966 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-13 12:44:18,970 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-13 12:44:18,974 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:18] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-13 12:44:19,396 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:19] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-13 12:44:26,546 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:26] "GET / HTTP/1.1" 200 -
+2026-04-13 12:44:26,573 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:26] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 12:44:26,577 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:26] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 12:44:30,844 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:30] "GET / HTTP/1.1" 200 -
+2026-04-13 12:44:30,876 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:30] "GET /static/css/styles.css HTTP/1.1" 200 -
+2026-04-13 12:44:30,880 - INFO - 127.0.0.1 - - [13/Apr/2026 12:44:30] "GET /static/neuronet-white-logo.jpg HTTP/1.1" 200 -
+2026-04-13 12:48:29,154 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-13 12:48:29,154 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-13 12:48:32,278 - INFO - 127.0.0.1 - - [13/Apr/2026 12:48:32] "GET / HTTP/1.1" 200 -
+2026-04-13 12:48:32,441 - INFO - 127.0.0.1 - - [13/Apr/2026 12:48:32] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 12:48:32,469 - INFO - 127.0.0.1 - - [13/Apr/2026 12:48:32] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 12:48:39,575 - INFO - 127.0.0.1 - - [13/Apr/2026 12:48:39] "GET /how-it-works HTTP/1.1" 200 -
+2026-04-13 12:48:39,605 - INFO - 127.0.0.1 - - [13/Apr/2026 12:48:39] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 12:48:39,608 - INFO - 127.0.0.1 - - [13/Apr/2026 12:48:39] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 12:52:32,973 - INFO - 127.0.0.1 - - [13/Apr/2026 12:52:32] "GET /how-it-works HTTP/1.1" 200 -
+2026-04-13 12:52:33,010 - INFO - 127.0.0.1 - - [13/Apr/2026 12:52:33] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-13 12:52:33,013 - INFO - 127.0.0.1 - - [13/Apr/2026 12:52:33] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-13 14:20:51,902 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-13 14:20:51,902 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-13 17:49:11,520 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-13 17:49:11,520 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-14 12:29:50,501 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-14 12:29:50,503 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-14 12:29:53,426 - INFO - 127.0.0.1 - - [14/Apr/2026 12:29:53] "GET / HTTP/1.1" 200 -
+2026-04-14 12:29:53,561 - INFO - 127.0.0.1 - - [14/Apr/2026 12:29:53] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-14 12:29:53,567 - INFO - 127.0.0.1 - - [14/Apr/2026 12:29:53] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-14 14:11:38,633 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-14 14:11:38,633 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-15 15:33:12,017 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-15 15:33:12,018 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-15 15:33:15,449 - INFO - 127.0.0.1 - - [15/Apr/2026 15:33:15] "GET / HTTP/1.1" 200 -
+2026-04-15 15:33:15,626 - INFO - 127.0.0.1 - - [15/Apr/2026 15:33:15] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:33:15,627 - INFO - 127.0.0.1 - - [15/Apr/2026 15:33:15] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:34:59,276 - INFO - 127.0.0.1 - - [15/Apr/2026 15:34:59] "GET /how-it-works HTTP/1.1" 200 -
+2026-04-15 15:34:59,301 - INFO - 127.0.0.1 - - [15/Apr/2026 15:34:59] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:34:59,304 - INFO - 127.0.0.1 - - [15/Apr/2026 15:34:59] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:35:03,683 - INFO - 127.0.0.1 - - [15/Apr/2026 15:35:03] "GET /guest/analyzer HTTP/1.1" 200 -
+2026-04-15 15:35:03,710 - INFO - 127.0.0.1 - - [15/Apr/2026 15:35:03] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:35:03,714 - INFO - 127.0.0.1 - - [15/Apr/2026 15:35:03] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:35:03,716 - INFO - 127.0.0.1 - - [15/Apr/2026 15:35:03] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-15 15:35:03,717 - INFO - 127.0.0.1 - - [15/Apr/2026 15:35:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-15 15:35:03,720 - INFO - 127.0.0.1 - - [15/Apr/2026 15:35:03] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-15 15:36:37,198 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:37] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:37,226 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:37] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:37,228 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:37] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:36:41,261 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:41] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:41,287 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:41] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:41,289 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:41] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:36:42,034 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:42] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:42,055 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:42] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:42,057 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:42] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:36:42,577 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:42] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:42,598 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:42] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:42,600 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:42] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,029 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:43,053 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,054 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,358 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:43,380 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,382 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,456 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:43,614 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:43,721 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,723 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,762 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,764 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,778 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "GET / HTTP/1.1" 200 -
+2026-04-15 15:36:43,830 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:36:43,834 - INFO - 127.0.0.1 - - [15/Apr/2026 15:36:43] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:42:43,501 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:43] "GET / HTTP/1.1" 200 -
+2026-04-15 15:42:43,552 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:42:43,562 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:43] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:42:44,267 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:44] "GET / HTTP/1.1" 200 -
+2026-04-15 15:42:44,291 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:42:44,294 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:44] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:42:44,820 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:44] "GET / HTTP/1.1" 200 -
+2026-04-15 15:42:44,850 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:42:44,855 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:44] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:42:45,262 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "GET / HTTP/1.1" 200 -
+2026-04-15 15:42:45,291 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:42:45,292 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:42:45,319 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "GET / HTTP/1.1" 200 -
+2026-04-15 15:42:45,357 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:42:45,360 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:42:45,497 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "GET / HTTP/1.1" 200 -
+2026-04-15 15:42:45,877 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:42:45,881 - INFO - 127.0.0.1 - - [15/Apr/2026 15:42:45] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 15:43:05,403 - INFO - 127.0.0.1 - - [15/Apr/2026 15:43:05] "GET / HTTP/1.1" 200 -
+2026-04-15 15:43:05,453 - INFO - 127.0.0.1 - - [15/Apr/2026 15:43:05] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 15:43:05,457 - INFO - 127.0.0.1 - - [15/Apr/2026 15:43:05] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:16:16,971 - INFO - 127.0.0.1 - - [15/Apr/2026 16:16:16] "GET / HTTP/1.1" 200 -
+2026-04-15 16:16:17,008 - INFO - 127.0.0.1 - - [15/Apr/2026 16:16:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:16:17,009 - INFO - 127.0.0.1 - - [15/Apr/2026 16:16:17] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:15,456 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:15] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:15,477 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:15] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:15,480 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:15] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:16,188 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:16,206 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:16,208 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:16,361 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:16,459 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:16,461 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:16,719 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:16,740 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:16,741 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:16] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,003 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:17,024 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,025 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,286 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:17,310 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:17,311 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,313 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,342 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,344 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,625 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:17,644 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,646 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,907 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "GET / HTTP/1.1" 200 -
+2026-04-15 16:17:17,926 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 16:17:17,927 - INFO - 127.0.0.1 - - [15/Apr/2026 16:17:17] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:22:23,026 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:23] "GET / HTTP/1.1" 200 -
+2026-04-15 18:22:23,051 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:23] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:22:23,052 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:23] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:22:24,785 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:24] "GET / HTTP/1.1" 200 -
+2026-04-15 18:22:24,810 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:24] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:22:24,812 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:24] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:22:29,577 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "GET /login HTTP/1.1" 200 -
+2026-04-15 18:22:29,601 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:22:29,603 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:22:29,613 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-15 18:22:29,615 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-15 18:22:29,622 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-15 18:22:29,625 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-15 18:22:29,628 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-15 18:22:29,925 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:29] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-15 18:22:31,607 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:31] "[32mGET /auth/google/login HTTP/1.1[0m" 302 -
+2026-04-15 18:22:31,793 - INFO - 127.0.0.1 - - [15/Apr/2026 18:22:31] "[32mGET /auth/google/login HTTP/1.1[0m" 302 -
+2026-04-15 18:28:42,759 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:42] "GET / HTTP/1.1" 200 -
+2026-04-15 18:28:42,781 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:42] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:28:42,783 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:42] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:28:46,060 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "GET /register HTTP/1.1" 200 -
+2026-04-15 18:28:46,085 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:28:46,088 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:28:46,090 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-15 18:28:46,095 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-15 18:28:46,097 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-15 18:28:46,098 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-15 18:28:46,100 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-15 18:28:46,127 - INFO - 127.0.0.1 - - [15/Apr/2026 18:28:46] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-15 18:29:09,835 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "POST /register HTTP/1.1" 200 -
+2026-04-15 18:29:09,860 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:29:09,862 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-15 18:29:09,864 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:29:09,866 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-15 18:29:09,870 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-15 18:29:09,874 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-15 18:29:09,876 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-15 18:29:09,884 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:09] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-15 18:29:37,900 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-04-15 18:29:37,911 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "GET /login?success=Registration+successful!+Please+log+in+and+complete+your+profile. HTTP/1.1" 200 -
+2026-04-15 18:29:37,942 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:29:37,944 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[33mGET /static/media/poster.jpg HTTP/1.1[0m" 404 -
+2026-04-15 18:29:37,944 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:29:37,950 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-15 18:29:37,951 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-15 18:29:37,953 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[33mGET /static/media/futuristic_loop.webm HTTP/1.1[0m" 404 -
+2026-04-15 18:29:37,956 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-15 18:29:37,968 - INFO - 127.0.0.1 - - [15/Apr/2026 18:29:37] "[33mGET /static/media/futuristic_loop.mp4 HTTP/1.1[0m" 404 -
+2026-04-15 18:30:08,704 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:08] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-04-15 18:30:08,758 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:08] "GET /profile HTTP/1.1" 200 -
+2026-04-15 18:30:08,783 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:08] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:30:08,785 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:08] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:30:08,790 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:08] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-15 18:30:08,792 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:08] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-15 18:30:08,794 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:08] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -
+2026-04-15 18:30:19,601 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:19] "[32mPOST /profile HTTP/1.1[0m" 302 -
+2026-04-15 18:30:19,618 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:19] "GET /pdf_upload HTTP/1.1" 200 -
+2026-04-15 18:30:19,646 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:19] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2026-04-15 18:30:19,652 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:19] "[36mGET /static/neuronet-white-logo.jpg HTTP/1.1[0m" 304 -
+2026-04-15 18:30:19,656 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:19] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2026-04-15 18:30:19,660 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:19] "[36mGET /static/js/responsive-sidebar.js HTTP/1.1[0m" 304 -
+2026-04-15 18:30:19,662 - INFO - 127.0.0.1 - - [15/Apr/2026 18:30:19] "[36mGET /static/manifest.json HTTP/1.1[0m" 304 -

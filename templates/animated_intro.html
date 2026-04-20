@@ -857,6 +857,20 @@
                 transform: translateY(0);
             }
         }
+
+        .how-it-works-top-left {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            min-width: auto;
+        }
+        @media (max-width: 768px) {
+            .how-it-works-top-left {
+                top: 12px;
+                left: 12px;
+            }
+        }
         
         /* Floating elements with enhanced animation */
         .floating-element {
@@ -1063,6 +1077,8 @@
         <div class="floating-element element-2">📊</div>
         <div class="floating-element element-3">📈</div>
         <div class="floating-element element-4">🎯</div>
+
+        <a href="{{ url_for('how_it_works') }}" class="btn btn-primary how-it-works-top-left">How It Works</a>
         
         <div class="intro-content">
             <div class="logo-animation">
@@ -1222,7 +1238,6 @@
             </div>
             
             <div class="buttons-animation">
-                <a href="{{ url_for('how_it_works') }}" class="btn btn-primary">How It Works</a>
                 <a href="{{ url_for('guest_analyzer') }}" class="btn btn-secondary">Try Guest Analyzer</a>
                 <a href="{{ url_for('login') }}" class="btn btn-secondary">Login to Your Account</a>
                 <a href="{{ url_for('register') }}" class="btn btn-secondary">Create New Account</a>
